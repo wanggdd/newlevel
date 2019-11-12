@@ -15,5 +15,5 @@ $info = Model_Wolaiceshi::getInfo([], 'id=1');
 //var_dump($info);
 
 $smarty->assign('title', 'hello world');
-$smarty->assign('con', '²âÊÔÄÚÈİ');
+$smarty->assign('con', '????????');
 $smarty->display('index.tpl');

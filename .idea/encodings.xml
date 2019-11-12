@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/111.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/AutoLoader.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/DB.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/DBHelper.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/Ebase.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/Factory.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/Functions.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/Model.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Core/Request.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Init.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Lib/import.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Smarty.class.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/include/conntent.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/include/functions.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/include/smarty_setting.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/index.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/system_config.php" charset="GBK" />
+  </component>
+</project>
