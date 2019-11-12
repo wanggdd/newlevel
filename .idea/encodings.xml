@@ -17,7 +17,7 @@
     <file url="file://$PROJECT_DIR$/include/functions.php" charset="GBK" />
     <file url="file://$PROJECT_DIR$/include/smarty_setting.php" charset="GBK" />
     <file url="file://$PROJECT_DIR$/index.php" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/setting.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/setting.php" charset="GBK" />
     <file url="file://$PROJECT_DIR$/system_config.php" charset="GBK" />
   </component>
 </project>
