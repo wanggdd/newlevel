@@ -1,8 +1,8 @@
 <html>
 	<head>
-		<title><{$title}></title>
+		<title>aaa</title>
 	</head>
 	<body>
-		<p><{$con}></p>
+		<p>sss</p>
 	</body>
 </html>
