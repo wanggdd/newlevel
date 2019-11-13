@@ -463,9 +463,9 @@ class DB_Plugin extends DB_PDO
 {
     protected $host     = '127.0.0.1';
     protected $username = 'root';
-    protected $password = 'fdasfQEW1231';
+    protected $password = '';
     protected $post     = 3306;
-    protected $database = "web_plugin";
+    protected $database = "level";
     protected $charset  = "latin1";
 }
 $DB_Plugin = new DB_Plugin;
