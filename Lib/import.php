@@ -13,4 +13,5 @@ import('Core.Factory');
 import('Core.DB');
 import('Core.Model');
 import('Core.Request');
+import('Core.Pager');
 
