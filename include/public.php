@@ -9,9 +9,14 @@ define("HOME_URL", '/'); // 首页地址
 
 $zz_userid = isset($_REQUEST['zz_userid']) ? (int)$_REQUEST['zz_userid'] : 0;
 
+$zz_user_info = [];
 if ($zz_userid) {
-	define('USER_USER_ID', $zz_userid); // 网站用户id
-	define('USER_USER_NAME', 'ceshi'); // 网站下用户的用户名
-	define('USER_USER_NICK_NAME', '昵称');
-	define('USER_USER_HEAD_PIC', ''); // 用户头像
+    $zz_user_info = [
+        'input_time' => '2009-11-04 10:19:58', // 注册时间
+    ];
+
+    define('USER_USER_ID', $zz_userid); // 网站用户id
+    define('USER_USER_NAME', 'ceshi'); // 网站下用户的用户名
+    define('USER_USER_NICK_NAME', '昵称');
+    define('USER_USER_HEAD_PIC', ''); // 用户头像
 }
