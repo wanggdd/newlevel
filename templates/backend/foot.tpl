@@ -1,5 +1,5 @@
-<script src="http://test.evyun.cn/test_EvyunUi/js/evPublicInit-min.js" charset="gbk"></script>
-<script src="public/js/paidItems.min.js"></script>
+<script src="../../../public/js/evPublicInit-min.js" charset="gbk"></script>
+<script src="../../../public/js/paidItems.min.js"></script>
 
 <script>
     $(function () {

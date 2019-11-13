@@ -17,18 +17,18 @@
                     <{include file='./tab.tpl'}>
                     <div class="tab-panel-body">
                         <div class="tab-panel-item active" id="basicFunction">
-                            <form action="" class="form-element basic-function-form">
+                            <form action="" class="form-element basic-function-form" method="post">
                                 <div class="form-item">
                                     <label class="item-label">功能设置：</label>
                                     <div class="item-con">
                                         <div class="radio-element-group">
                                             <label class="radio-element">
-                                                <input type="radio" name="tuijian">
+                                                <input type="radio" name="on_off" value="1" <{if $info.on_off==1}>checked<{/if}>>
                                                 <i class="dot"></i>
                                                 <span class="radio-label">是</span>
                                             </label>
-                                            <label class="radio-element checked">
-                                                <input type="radio" checked="checked" name="tuijian">
+                                            <label class="radio-element">
+                                                <input type="radio" name="on_off" value="0" <{if $info.on_off!=1}>checked<{/if}>>
                                                 <i class="dot"></i>
                                                 <span class="radio-label">否</span>
                                             </label>
@@ -40,27 +40,27 @@
                                     <div class="item-con">
                                         <div class="block">
                                             <label class="checkbox-element">
-                                                <input type="checkbox" name="hobby_1_1">
+                                                <input type="checkbox" placeholder="0.00" name="nostate_active" value="1" <{if $info.nostate_active==1}>checked<{/if}>>
                                                 <i class="dot evicon evicon-right-2"></i>
                                                 <span class="checkbox-label">无状态升级至激活(打给直接上级)</span>
                                             </label>
                                         </div>
                                         <div class="block">
                                             <div class="input-element">
-                                                <input type="text" placeholder="输入文字">
+                                                <input type="text" placeholder="0.00" name="nostate_active_money" value="<{$info.nostate_active_money}>">
                                             </div>
                                             <span class="item-text">&nbsp;元</span>
                                         </div>
                                         <div class="block">
                                             <label class="checkbox-element">
-                                                <input type="checkbox" name="hobby_1_1">
+                                                <input type="checkbox" placeholder="0.00" name="noactive_active" value="1" <{if $info.noactive_active==1}>checked<{/if}>>
                                                 <i class="dot evicon evicon-right-2"></i>
                                                 <span class="checkbox-label">无状态升级至激活(打给直接上级)</span>
                                             </label>
                                         </div>
                                         <div class="block">
                                             <div class="input-element">
-                                                <input type="text" placeholder="输入文字">
+                                                <input type="text" placeholder="0.00" name="noactive_active_money" value="<{$info['noactive_active_money']}>">
                                             </div>
                                             <span class="item-text">&nbsp;元</span>
                                         </div>
