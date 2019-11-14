@@ -81,6 +81,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <{foreach from=$memberlist key=num item="member"}>
                                     <tr class="text-center vertical-middle">
                                         <td>
                                             <label class="checkbox-element sm">
@@ -95,7 +96,7 @@
                                                                        src="images/member.jpg"></span>
                                                 </div>
                                                 <div class="media-body">
-                                                    <p>用户名:pfl001</p>
+                                                    <p>用户名:<{$member.user_id}></p>
                                                     <p>昵称:批批批</p>
                                                     <p>手机:13111111111</p>
                                                 </div>
@@ -112,15 +113,11 @@
                                                 </div>
                                                 <div class="option-list dropdown-menu">
                                                     <dl>
+
                                                         <dd title="无" data-value="0">
                                                             <a href="###"><span>无</span></a>
                                                         </dd>
-                                                        <dd title="开启" data-value="1">
-                                                            <a href="###"><span>开启</span></a>
-                                                        </dd>
-                                                        <dd title="关闭" data-value="2">
-                                                            <a href="###"><span>关闭</span></a>
-                                                        </dd>
+
                                                     </dl>
                                                 </div>
                                             </div>
@@ -154,17 +151,18 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><span class="sub-text" data-action="lookSub">128</span></td>
-                                        <td>2019-11-11</td>
+                                        <td><span class="sub-text" data-action="lookSub"><{$member.lower_number}></span></td>
+                                        <td><{$member.create_time|date_format:'%Y-%m-%d'}></td>
                                         <td>
                                             <div class="href-area">
-                                                <a data-action="lookQRCode" href="###">查看二维码</a>
+                                                <a data-action="lookQRCode" href="###"></a>
                                                 <a href="getMoney.html">收款记录</a>
                                                 <a href="payMoney.html">打款记录</a>
                                                 <a href="###">分享二维码</a>
                                             </div>
                                         </td>
                                     </tr>
+                                    <{/foreach}>
                                     </tbody>
                                     <tfoot>
                                     <tr class="striped">
@@ -190,18 +188,10 @@
                                             <option value="40条/页">40条/页</option>
                                         </select>
                                     </span>
-                                <span class="page-number">
-                                        <a class="disabled" href="###" data-page="1">上一页</a>
-                                        <a href="###" data-page="1">1</a>
-                                        <b>2</b>
-                                        <a href="###" data-page="3">3</a>
-                                        <a href="###" data-page="4">4</a>
-                                        <a href="###" data-page="5">5</a>
-                                        <a href="###" data-page="3">下一页</a>
-                                    </span>
+                               <{$page_str}>
                                 <span class="page-skip">到第<input type="text" size="2" maxlength="5">页<button
                                             class="btn btn-default">确定</button></span>
-                                <span class="page-sum">共<em>5</em>页</span>
+                                <span class="page-sum">共<em><{$totalpage}></em>页</span>
                             </div>
                         </div>
                     </div>
