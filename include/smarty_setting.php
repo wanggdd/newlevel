@@ -15,7 +15,6 @@ if(!class_exists('Smarty_GuestBook')){
             $this->setTemplateDir(SYSTEM_ROOT.'/templates/');
             $this->setCompileDir(SYSTEM_ROOT.'/templates_c/');
 
-
             $this->setLeftDelimiter("<{");
             $this->setRightDelimiter("}>");
             $this->debugging = false;

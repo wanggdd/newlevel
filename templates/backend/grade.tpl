@@ -35,7 +35,7 @@
                                         </colgroup>
                                         <thead>
                                         <tr class="active text-center">
-                                            <th>排序</th>
+                                            <th>等级</th>
                                             <th>等级名称</th>
                                             <th>初始会员</th>
                                             <th>晋升金额</th>
@@ -48,22 +48,23 @@
                                         <tr class="text-center vertical-middle">
                                             <td>
                                                 <div class="input-element">
-                                                    <input type="text" size="5" name="grade<{$key}>" value="<{$item.grade}>">
+                                                    <input type="text" size="5" name="grade[]<{$key}>" value="<{$item.grade}>">
+                                                    <input type="hidden" size="5" name="ids[]<{$key}>" value="<{$item.id}>">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-element">
-                                                    <input type="text" size="15" name="title<{$key}>" value="<{$item.title}>">
+                                                    <input type="text" size="15" name="title[]<{$key}>" value="<{$item.title}>">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="member-set-area">
                                                     <{if $item.name}>
                                                         <span><{$item.name}></span>
-                                                        <a class="text-primary" href="###" data-action="mechange">更改</a>
+                                                        <a class="text-primary" href="###" data-action="mechange" data-id="<{$item.id}>">更改</a>
                                                     <{else}>
                                                         <div class="member-set-area">
-                                                            <a class="text-primary" href="###" data-action="meset">设置</a>
+                                                            <a class="text-primary" href="###" data-action="meset" data-id="<{$item.id}>">设置</a>
                                                         </div>
                                                     <{/if}>
 
@@ -74,7 +75,7 @@
                                             </td>
                                             <td>
                                                 <div class="href-area">
-                                                    <a href="###" data-action="upset">晋升设置</a>
+                                                    <a href="###" data-action="upset" data-id="<{$item.id}>">晋升设置</a>
                                                     <a href="###" data-action="del">删除</a>
                                                 </div>
                                             </td>
@@ -94,7 +95,7 @@
                                             </td>
                                             <td>
                                                 <div class="member-set-area">
-                                                    <a class="text-primary" href="###" data-action="meset">设置</a>
+                                                    <a class="text-primary" href="###" data-action="meset" data-id="<{$item.id}>">设置</a>
                                                 </div>
                                             </td>
                                             <td>
@@ -157,15 +158,16 @@
         memberGrade.on({
             click: function (ev) {
                 var $this = $(this),
-                    action = $this.data('action');
+                    action = $this.data('action'),
+                    id = $this.data('id');
 
                 switch (action) {
                     case 'upset':
-                        publicFun.winIframe('promoteSet.tpl', 490, 320, '晋升设置');
+                        publicFun.winIframe('promote.php?id='+id, 490, 320, '晋升设置');
                         break;
                     case 'meset':
                     case 'mechange':
-                        publicFun.winIframe('memberSet.tpl', 800, 800, '出事用户等级');
+                        publicFun.winIframe('memberSet.php?id='+id, 800, 800, '初始用户等级');
                         break;
                     case 'del':
                         publicFun.confirm('确定要删除吗',function(){
