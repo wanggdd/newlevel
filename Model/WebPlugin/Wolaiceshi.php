@@ -31,7 +31,7 @@ class Model_Wolaiceshi extends \Model
 
         $fields = is_array($field) ? $field : [$field => $field];
 
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
         $obj->from('wolaiceshi s', $fields);
         $obj->addAndWhere($where);
         $obj->setLimiter(0, 1);
@@ -48,11 +48,11 @@ class Model_Wolaiceshi extends \Model
      */
     public static function getList(array $data = [])
     {
-        $fields     = isset($data['fields'])     ? $data['fields']     : [];
-        $leftFields = isset($data['leftFields']) ? $data['leftFields'] : [];
-        $where      = isset($data['where'])      ? $data['where']      : '';
+        $fields     = isset($data['fields']) ?? [];
+        $leftFields = isset($data['leftFields']) ?? [];
+        $where      = isset($data['where']) ?? '';
 
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
         $obj->from('wolaiceshi s', $fields);
         $obj->addAndWhere($where);
         return $obj->query();
