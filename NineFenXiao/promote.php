@@ -32,4 +32,4 @@ if($id && isset($_POST['is_set'])){
 $info = Model_Grade::getOneGrade($id);
 
 $smarty->assign('info', $info);
-$smarty->display('backend/promoteSet.tpl');
+$smarty->display('nine_fenxiao/promoteSet.tpl');

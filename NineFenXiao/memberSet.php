@@ -59,4 +59,4 @@ if($zz_user_info){
 $smarty->assign('info', $info);
 $smarty->assign('gradeList', $gradeList);
 $smarty->assign('user_info',$zz_user_info);
-$smarty->display('backend/memberSet.tpl');
+$smarty->display('nine_fenxiao/memberSet.tpl');

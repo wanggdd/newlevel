@@ -11,4 +11,4 @@ use Model\WebPlugin\Model_Setting;
 $info = Model_Setting::getSetting();
 //var_dump($info);exit;
 $smarty->assign('con', $info);
-$smarty->display('backend/setting.tpl');
+$smarty->display('nine_fenxiao/setting.tpl');

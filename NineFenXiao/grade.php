@@ -20,4 +20,4 @@ if($_POST){
 
 $info = Model_Grade::getGrade();
 $smarty->assign('info', $info);
-$smarty->display('backend/grade.tpl');
+$smarty->display('nine_fenxiao/grade.tpl');

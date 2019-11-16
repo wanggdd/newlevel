@@ -25,4 +25,4 @@ if(!empty($_POST)){
 
 $info = Model_Setting::getSetting();
 $smarty->assign('info', $info[0]);
-$smarty->display('backend/setting.tpl');
+$smarty->display('nine_fenxiao/setting.tpl');
