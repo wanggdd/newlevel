@@ -1,9 +1,11 @@
 <?php
-error_reporting(E_ALL);
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/setting.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/include/public.php';
+include_once __dir__.'/../setting.php';
 
+require_once(SYSTEM_ROOT."Smarty.class.php");
+require_once(SYSTEM_ROOT."include/smarty_setting.php");
+
+$uid = USER_ID;
 
 use Model\WebPlugin\Model_Setting;
 
@@ -23,6 +25,7 @@ if(!empty($_POST)){
     Model_Setting::upSetting($_POST);
 }
 
-$info = Model_Setting::getSetting();
-$smarty->assign('info', $info[0]);
+$info = Model_Setting::getSetting($uid);
+$smarty->assign('info', $info);
+$smarty->assign('action', 'setting');
 $smarty->display('nine_fenxiao/setting.tpl');

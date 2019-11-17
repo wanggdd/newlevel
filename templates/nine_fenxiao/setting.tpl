@@ -1,4 +1,4 @@
-<{include file='./head.tpl'}>
+<{include file='nine_fenxiao/head.tpl'}>
 <div class="paid-item-wrap">
     <div class="panel paid-item-head">
         <div class="panel-body">
@@ -14,7 +14,7 @@
         <div class="tab-panel-body">
             <div class="tab-panel-item active no-spacing">
                 <div class="tab-panel style-1">
-                    <{include file='./tab.tpl'}>
+                    <{include file='nine_fenxiao/tab.tpl'}>
                     <div class="tab-panel-body">
                         <div class="tab-panel-item active" id="basicFunction">
                             <form action="" class="form-element basic-function-form" method="post">
@@ -40,9 +40,9 @@
                                     <div class="item-con">
                                         <div class="block">
                                             <label class="checkbox-element">
-                                                <input type="checkbox" placeholder="0.00" name="nostate_active" value="1" <{if $info.nostate_active==1}>checked<{/if}>>
+                                                <input type="checkbox" placeholder="0.00" name="nostate_active" value="1" <{if $info.nostate_active=='1'}>checked<{/if}>>
                                                 <i class="dot evicon evicon-right-2"></i>
-                                                <span class="checkbox-label">无状态升级至激活(打给直接上级)</span>
+                                                <span class="checkbox-label">未激活升级至激活(打给直接上级)</span>
                                             </label>
                                         </div>
                                         <div class="block">
@@ -55,12 +55,12 @@
                                             <label class="checkbox-element">
                                                 <input type="checkbox" placeholder="0.00" name="noactive_active" value="1" <{if $info.noactive_active==1}>checked<{/if}>>
                                                 <i class="dot evicon evicon-right-2"></i>
-                                                <span class="checkbox-label">无状态升级至激活(打给直接上级)</span>
+                                                <span class="checkbox-label">未激活升级至激活(打给直接上级)</span>
                                             </label>
                                         </div>
                                         <div class="block">
                                             <div class="input-element">
-                                                <input type="text" placeholder="0.00" name="noactive_active_money" value="<{$info['noactive_active_money']}>">
+                                                <input type="text" placeholder="0.00" name="noactive_active_money" value="<{$info.noactive_active_money}>">
                                             </div>
                                             <span class="item-text">&nbsp;元</span>
                                         </div>
@@ -80,4 +80,4 @@
         </div>
     </div>
 </div>
-<{include file='./foot.tpl'}>
+<{include file='nine_fenxiao/foot.tpl'}>

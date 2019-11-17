@@ -1,4 +1,4 @@
-<{include file='./head.tpl'}>
+<{include file='nine_fenxiao/head.tpl'}>
 <div class="paid-item-wrap">
     <div class="panel paid-item-head">
         <div class="panel-body">
@@ -14,7 +14,7 @@
         <div class="tab-panel-body">
             <div class="tab-panel-item active no-spacing">
                 <div class="tab-panel style-1">
-                    <{include file='./tab.tpl'}>
+                    <{include file='nine_fenxiao/tab.tpl'}>
 
                     <div class="tab-panel-body">
                         <div class="tab-panel-item active member-grade-panel-item" id="memberGrade">
@@ -151,7 +151,7 @@
     </div>
 </div>
 
-<{include file='./foot.tpl'}>
+<{include file='nine_fenxiao//foot.tpl'}>
 <script>
     $(function () {
         var memberGrade = $('#memberGrade');

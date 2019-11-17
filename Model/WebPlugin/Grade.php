@@ -5,15 +5,15 @@ use Model\WebPlugin\Model_User;
 
 class Model_Grade extends \Model
 {
-    public static function getGrade(){
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
-        $obj->from('grade s');
-        $obj->addAndWhere('user_id='.USER_ID);
+    public static function getGrade($user_id){
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('grade s',[]);
+        $obj->addAndWhere('user_id='.$user_id);
 
         $info = $obj->query(false);
         if($info){
             foreach($info as $key=>$item){
-                $user_info = Model_User::getUser('user_name','id='.$item['user_user_id']);
+                $user_info = Model_User::getUser('id='.$item['user_user_id']);
                 $info[$key]['name'] = $user_info['user_name'].'/'.$user_info['nick_name'];
             }
         }
@@ -24,8 +24,8 @@ class Model_Grade extends \Model
         if(!$id){
             return false;
         }
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
-        $obj->from('grade s');
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('grade s',[]);
         $obj->addAndWhere('id='.$id);
 
         $info = $obj->query(false);
@@ -38,8 +38,8 @@ class Model_Grade extends \Model
             return false;
         }
 
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
-        $obj->from('grade s');
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('grade s',[]);
         $obj->addAndWhere('grade='.$grade.' and user_id='.$user_id);
 
         return $obj->query(false);
@@ -50,7 +50,7 @@ class Model_Grade extends \Model
             return false;
         }
 
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         return $obj->update('grade s',$data,'id='.$id.' and user_id='.USER_ID);
     }
 
@@ -60,14 +60,14 @@ class Model_Grade extends \Model
         }
         var_dump($data);
 
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->insert('grade',$data);
         echo $obj->getSql();exit;
     }
 
     public static function getGradeListByUser(){
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
-        $obj->from('grade s');
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('grade s',[]);
         $obj->addAndWhere('user_id='.USER_ID);
         $obj->addOrderBy('grade','desc');
 

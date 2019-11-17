@@ -4,26 +4,25 @@ namespace Model\WebPlugin;
 
 class Model_User extends \Model
 {
-    public static function getUser($field = [], $where = '')
+    public static function getUser($where = '')
     {
 
-        $fields = is_array($field) ? $field : [$field => $field];
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
-        $obj->from('user_user uu', $fields);
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('user_user uu', []);
         $obj->addAndWhere($where);
         $obj->setLimiter(0, 1);
-        return is_array($field) ? $obj->query() : $obj->query()->$field;
+        return $obj->query(false);
     }
 
-    public static function upGrade($data = array())
+    public static function upGrade($user_id,$data = array())
     {
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
 
-        $info = self::getGrade();
+        $info = Model_Grade::getGrade();
         if($info){
             return $obj->update('setting',$data,'user_id=1');
         }else{
-            $data['user_id'] = USER_ID;
+            $data['user_id'] = $user_id;
             return $obj->insert('setting',$data);
         }
     }

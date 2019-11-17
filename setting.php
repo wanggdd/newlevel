@@ -13,15 +13,14 @@ define('EV_ACCESS', 1);
 include_once(SYSTEM_ROOT."include/conntent.php");
 include_once(SYSTEM_ROOT."include/functions.php");
 include_once(SYSTEM_ROOT."Core/Ebase.php");
-
 //2015新增框架
 include_once(SYSTEM_ROOT.'Core/AutoLoader.php');
 spl_autoload_register(array('AutoLoader', 'autoLoad'));
 include_once(SYSTEM_ROOT.'Core/import.php');
 
 
-define('USER_ID', 248987);
-define('USER_NAME', 'wolaiceshi');
+define('USER_ID', 1);
+define('USER_NAME', 'wulihao');
 define('IP', trim(getIP()));
 define('SITE_VIP', 1); // 付费用户
 define('AGENT_ID', 0); // 代理商id

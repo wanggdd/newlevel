@@ -928,9 +928,9 @@ class DB_Sql
 class DB_Plugin extends DB_Sql
 {
     var $Host     = '127.0.0.1';
-    var $Database = "web_plugin";
+    var $Database = "level";
     var $User     = 'root';
-    var $Password = 'fdasfQEW1231';
+    var $Password = '123456';
     var $LinkName = "conn_ev123_web_plugin";
 }
 $DB_Plugin = new DB_Plugin;
@@ -939,9 +939,9 @@ $DB_Plugin->query("set names latin1");
 class DB_Plugin_R extends DB_Sql
 {
     var $Host     = '127.0.0.1';
-    var $Database = "web_plugin";
+    var $Database = "level";
     var $User     = 'root';
-    var $Password = 'fdasfQEW1231';
+    var $Password = '123456';
     var $LinkName = "conn_ev123_web_plugin_r";
 }
 $DB_Plugin_R = new DB_Plugin_R;

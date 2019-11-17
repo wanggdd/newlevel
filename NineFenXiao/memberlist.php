@@ -2,10 +2,15 @@
 /**
  会员列表功能
  */
-include_once $_SERVER['DOCUMENT_ROOT'] . '/setting.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/include/public.php';
+include_once __dir__.'/../setting.php';
+
+require_once(SYSTEM_ROOT."Smarty.class.php");
+require_once(SYSTEM_ROOT."include/smarty_setting.php");
+
+$uid = USER_ID;
 
 use Model\WebPlugin\Model_MemberList;
+
 $memberlist = Model_MemberList::getMemberList();
 $member_number = Model_MemberList::getMemberCount();
 //var_dump($memberlist);exit;
@@ -23,4 +28,5 @@ $smarty->assign("memberlist",$memberlist);
 $smarty->assign("membernumber",$member_number);
 $smarty->assign("totalpage",$totalpage);
 $smarty->assign("page_str",$page_str);
+$smarty->assign("action",'memberlist');
 $smarty->display('nine_fenxiao/memberList.tpl');

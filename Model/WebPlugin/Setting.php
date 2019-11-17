@@ -4,17 +4,20 @@ namespace Model\WebPlugin;
 
 class Model_Setting extends \Model
 {
-    public static function getSetting()
+    public static function getSetting($uid)
     {
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
-        $obj->from('setting s');
-        $obj->addAndWhere('user_id='.USER_ID);
-        return $obj->query(false);
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('setting s',array());
+        $obj->addAndWhere('user_id='.$uid);
+        $result = $obj->query(false);
+        if($result)
+            return $result[0];
+        return false;
     }
 
     public static function upSetting($data = array())
     {
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
 
         $info = self::getSetting();
         if($info){

@@ -1,4 +1,4 @@
-<{include file='./head.tpl'}>
+<{include file='nine_fenxiao/head.tpl'}>
 <div class="paid-item-wrap">
     <div class="panel paid-item-head">
         <div class="panel-body">
@@ -14,7 +14,7 @@
         <div class="tab-panel-body">
             <div class="tab-panel-item active no-spacing">
                 <div class="tab-panel style-1">
-                    <{include file='./tab.tpl'}>
+                    <{include file='nine_fenxiao/tab.tpl'}>
 
                     <div class="tab-panel-body">
                         <div class="tab-panel-item active member-list-panel-item" id="memberList">
@@ -201,4 +201,4 @@
     </div>
 </div>
 
-<{include file='./foot.tpl'}>
+<{include file='nine_fenxiao/foot.tpl'}>
