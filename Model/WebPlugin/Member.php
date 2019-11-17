@@ -17,6 +17,18 @@ class Model_Member extends \Model
         return $obj->query(faslse);
     }
 
+    public static function getLowerList(){
+
+    }
+
+    public static function getLowerCount($user_id){
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('member s',[]);
+        $obj->addAndWhere('higher_id=' . $user_id);
+
+        return $obj->count();
+    }
+
     public static function upOneMember($data = array(), $user_user_id = 0)
     {
         if (!$data || !$user_user_id) {

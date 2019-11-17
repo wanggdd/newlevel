@@ -10,9 +10,35 @@ require_once(SYSTEM_ROOT."include/smarty_setting.php");
 $uid = USER_ID;
 
 use Model\WebPlugin\Model_MemberList;
+use Model\WebPlugin\Model_Grade;
 
-$memberlist = Model_MemberList::getMemberList(array('user_id'=>$uid));
-$member_number = Model_MemberList::getMemberCount(array('user_id'=>$uid));
+$where = array('u.user_id'=>$uid);
+if(isset($_POST['type']) && $_POST['type'] == 'search' && $_POST['all'] != '1'){
+    if($_POST['start_date']){
+        $where['start_date'] = $_POST['start_date'];
+    }
+    if($_POST['end_date']){
+        $where['end_date'] = $_POST['end_date'];
+    }
+    if($_POST['search_mix']){
+        $where['search_mix'] = $_POST['search_mix'];
+    }
+    $smarty->assign("start_date",$_POST['start_date']);
+    $smarty->assign("end_date",$_POST['end_date']);
+    $smarty->assign("search_mix",$_POST['search_mix']);
+}
+
+$memberlist = Model_MemberList::getMemberList($where);
+if($memberlist){
+    foreach($memberlist as $key=>$item){
+        $memberlist[$key]['pic'] = $item['pic'] ? $item['pic'] : 'http://aimg8.dlszyht.net.cn/default/user_user_profile.jpg';
+        $memberlist[$key]['nick_name'] = $item['nick_name'] ? $item['nick_name'] : $item['user_name'];
+
+        //下级数量
+        $lower_num = \Model\WebPlugin\Model_Member::getMemberById();
+    }
+}
+$member_number = Model_MemberList::getMemberCount($where);
 $page  = intval($_POST['page']);
 if($page<1){
     $page = 1;
@@ -23,9 +49,15 @@ $totalpage = ceil($member_number/$pagesize);
 $page = new Pager($member_number,$page,$pagesize);
 $page_str = $page->GetPagerContent();
 //echo $page_str;exit;
+
+//等级列表
+$grade_list = Model_Grade::getGradeListByUser($uid);
+
 $smarty->assign("memberlist",$memberlist);
 $smarty->assign("membernumber",$member_number);
 $smarty->assign("totalpage",$totalpage);
 $smarty->assign("page_str",$page_str);
+$smarty->assign("grade_list",$grade_list);
 $smarty->assign("action",'memberlist');
+$smarty->assign("title",'会员列表');
 $smarty->display('nine_fenxiao/memberList.tpl');

@@ -27,6 +27,7 @@
                                         </button>
                                     </div>
                                 </div>
+                                <p style="color: #0090ff;">支持1-9级，请按顺序依次填写。</p>
                                 <div class="data-table" data-toggle="allSelect" data-all-name="checkbox_all" data-target-name="checkbox_item">
                                     <table class="table table-no-outer-border table-spacing-lg">
                                         <colgroup>
@@ -182,7 +183,18 @@
                         break
                 }
             }
+            blur: function(ev){
+                var $this = $(this),
+                    action = $this.data('action');
+                if(action==='sort'){
+                    var val = $this.val();
+                    if(isNaN(val) || (!isNaN(val) && val > 9)){
+                        publicFun.point('请输入合法的数字', 0);
+                        $this.select();
+                    }
+                }
 
+            }
         }, '[data-action]');
     });
 </script>

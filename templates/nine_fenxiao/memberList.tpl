@@ -21,22 +21,23 @@
                             <div class="filter-form">
                                 <div class="form-element">
                                     <div class="form-item-group">
+                                        <form method="post" action="">
                                         <div class="form-item">
                                             <label class="item-label">注册时间：</label>
                                             <div class="item-con">
                                                 <div class="input-element-btn">
                                                     <div class="input-element-joint" data-toggle="datePicker"
-                                                         data-date-type="YYYY-MM-DD" data-date-max="2019-01-02"
+                                                         data-date-type="YYYY-MM-DD" data-date-max="2100-01-02"
                                                          data-date-min="2018-01-09" data-date-isrange="1">
                                                         <div class="input-element prefix">
                                                             <input size="10" type="text" readonly="readonly"
-                                                                   placeholder="开始时间" value="2018-01-09">
+                                                                   placeholder="开始时间" value="<{$start_date}>" name="start_date">
                                                             <i class="evicon evicon-date-1"></i>
                                                         </div>
                                                         <i class="joint-line">-</i>
                                                         <div class="input-element prefix">
                                                             <input size="10" type="text" readonly="readonly"
-                                                                   placeholder="结束时间" value="2019-01-09">
+                                                                   placeholder="结束时间" value="<{$end_date}>" name="end_date">
                                                             <i class="evicon evicon-date-1"></i>
                                                         </div>
                                                     </div>
@@ -47,12 +48,14 @@
                                             <label class="item-label">查找：</label>
                                             <div class="item-con">
                                                 <div class="input-element">
-                                                    <input type="text" placeholder="输入文字" size="30">
+                                                    <input type="text" placeholder="用户名|昵称|手机号" name="search_mix" size="30">
                                                 </div>
-                                                <button type="button" class="btn btn-primary"><span>搜索</span></button>
-                                                <button type="button" class="btn btn-outline-danger"><span>查看全部</span></button>
+                                                <button type="submit" class="btn btn-primary"><span>搜索</span></button>
+                                                <button type="submit" name="all" value="1" class="btn btn-outline-danger"><span>查看全部</span></button>
+                                                <input type="hidden" name="type" value="search">
                                             </div>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -81,6 +84,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <{if $memberlist}>
                                     <{foreach from=$memberlist key=num item="member"}>
                                     <tr class="text-center vertical-middle">
                                         <td>
@@ -92,77 +96,54 @@
                                         <td>
                                             <div class="media">
                                                 <div class="media-left">
-                                                            <span><img class="media-object"
-                                                                       src="images/member.jpg"></span>
+                                                            <span><img class="media-object" src="<{$member.pic}>"></span>
                                                 </div>
                                                 <div class="media-body">
                                                     <p>用户名:<{$member.user_id}></p>
-                                                    <p>昵称:批批批</p>
-                                                    <p>手机:13111111111</p>
+                                                    <p>昵称:<{$member.nick_name}></p>
+                                                    <p>手机:<{$member.mobile}></p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>18999999</td>
+                                        <td><{$member.id}></td>
                                         <td>
                                             <div class="select-element dropdown">
                                                 <div class="input-element suffix" data-type="select"
                                                      data-multiple="0" data-toggle="dropdown">
-                                                    <input type="text" readonly="readonly" placeholder="无" size="5">
-                                                    <input type="hidden" value="0">
-                                                    <i class="evicon evicon-arrow-up-2"></i>
-                                                </div>
-                                                <div class="option-list dropdown-menu">
-                                                    <dl>
-
-                                                        <dd title="无" data-value="0">
-                                                            <a href="###"><span>无</span></a>
-                                                        </dd>
-
-                                                    </dl>
+                                                    <select name="status[]<{$num}>">
+                                                        <option value="0" <{if $member.status==0}>checked<{/if}>>无状态</option>
+                                                        <option value="1" <{if $member.status==1}>checked<{/if}>>未激活</option>
+                                                        <option value="2" <{if $member.status==2}>checked<{/if}>>已激活</option>
+                                                        <option value="3" <{if $member.status==3}>checked<{/if}>>空</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="select-element dropdown">
-                                                <div class="input-element suffix" data-type="select"
-                                                     data-multiple="0" data-toggle="dropdown">
-                                                    <input type="text" readonly="readonly" placeholder="等级" size="8">
-                                                    <input type="hidden" value="0">
-                                                    <i class="evicon evicon-arrow-up-2"></i>
-                                                </div>
-                                                <div class="option-list dropdown-menu">
-                                                    <dl>
-                                                        <dd title="等级选择" data-value="0">
-                                                            <a href="###"><span>等级选择</span></a>
-                                                        </dd>
-                                                        <dd title="一级" data-value="1">
-                                                            <a href="###"><span>一级</span></a>
-                                                        </dd>
-                                                        <dd title="二级" data-value="2">
-                                                            <a href="###"><span>二级</span></a>
-                                                        </dd>
-                                                        <dd title="三级" data-value="3">
-                                                            <a href="###"><span>三级</span></a>
-                                                        </dd>
-                                                        <dd title="四级" data-value="4">
-                                                            <a href="###"><span>四级</span></a>
-                                                        </dd>
-                                                    </dl>
-                                                </div>
+                                                <{if $grade_list}>
+                                                <select name="grade[]<{$num}>">
+                                                    <option value="0">等级选择</option>
+                                                    <{foreach key=k item=grade from=$grade_list}>
+                                                    <option value="<{$grade.id}>"><{$grade.grade}></option>
+                                                    <{/foreach}>
+                                                </select>
+                                                <{/if}>
                                             </div>
                                         </td>
                                         <td><span class="sub-text" data-action="lookSub"><{$member.lower_number}></span></td>
-                                        <td><{$member.create_time|date_format:'%Y-%m-%d'}></td>
+                                        <td><{$member.input_time}></td>
                                         <td>
                                             <div class="href-area">
                                                 <a data-action="lookQRCode" href="###"></a>
                                                 <a href="getMoney.html">收款记录</a>
                                                 <a href="payMoney.html">打款记录</a>
-                                                <a href="###">分享二维码</a>
+                                                <a data-action="share" data-id="<{$member.user_user_id}>" href="###">分享二维码</a>
                                             </div>
                                         </td>
                                     </tr>
                                     <{/foreach}>
+
                                     </tbody>
                                     <tfoot>
                                     <tr class="striped">
@@ -173,16 +154,19 @@
                                                 <span class="checkbox-label">全选</span>
                                             </label>
                                             <button type="button" class="btn btn-sm btn-primary" data-action="changeAllGrade"><span>批量修改等级</span></button>
-                                            <button type="button" class="btn btn-sm btn-primary"><span>批量导出</span></button>
+                                            <button type="button" class="btn btn-sm btn-primary"><a href="/NineFenXiao/export.php?start_date=<{$start_date}>&end_date=<{$end_date}>&search_mix=<{$search_mix}>"><span>批量导出</span></a> </button>
                                         </td>
                                     </tr>
                                     </tfoot>
+                                    <{/if}>
                                 </table>
                             </div>
+                            <{if $memberlist}>
                             <div class="pagination text-center">
                                <{$page_str}>
                                 <span class="page-sum">共<em><{$totalpage}></em>页</span>
                             </div>
+                            <{/if}>
                         </div>
                     </div>
                 </div>
@@ -192,3 +176,30 @@
 </div>
 
 <{include file='nine_fenxiao/foot.tpl'}>
+
+<script>
+    $(function () {
+        var memberList = $('#memberList');
+        memberList.on({
+            click: function (ev) {
+                var $this = $(this),
+                    action = $this.data('action'),
+                    id = $this.data('id');
+                switch (action) {
+                    case 'lookQRCode':
+                        publicFun.winIframe('memberList/lookQRCode.html', 410, 320, '更改收款码');
+                        break;
+                    case 'lookSub':
+                        publicFun.winIframe('memberList/lookSub.html', 520, 630, '下级信息');
+                        break;
+                    case 'changeAllGrade':
+                        publicFun.winIframe('memberList/changeAllGrade.html', 410, 290, '批量修改等级');
+                        break;
+                    case 'share':
+                        publicFun.winIframe('/NineFenXiao/share.php?user_user_id='+id, 410, 290, '分享二维码');
+                        break;
+                }
+            }
+        }, '[data-action]');
+    });
+</script>

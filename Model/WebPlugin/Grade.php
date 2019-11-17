@@ -67,7 +67,7 @@ class Model_Grade extends \Model
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('grade s',[]);
         $obj->addAndWhere('user_id='.$user_id);
-        $obj->addOrderBy('grade','desc');
+        $obj->addOrderBy('grade','asc');
 
         return $obj->query(false);
     }
