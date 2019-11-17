@@ -14,6 +14,21 @@ class Model_User extends \Model
         return $obj->query(false);
     }
 
+    public static function getUserList($where = '',$start=0,$limit=10){
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('user_user uu', []);
+        $obj->addAndWhere($where);
+        $obj->setLimiter($start,$limit);
+        return $obj->query(false);
+    }
+
+    public static function getUserCount($where=[]){
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('user_user uu', []);
+        $obj->addAndWhere($where);
+        return $obj->count();
+    }
+
     public static function upGrade($user_id,$data = array())
     {
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));

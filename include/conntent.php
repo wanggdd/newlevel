@@ -340,7 +340,7 @@ class DB_Sql
                 fclose($Ts);
             }
 
-            mysql_update_website_user_update_time($Query_String);
+            //mysql_update_website_user_update_time($Query_String);
         }
 
         //É¾³ýÏÞÖÆ

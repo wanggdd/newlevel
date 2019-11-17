@@ -51,7 +51,7 @@ class Model_Grade extends \Model
         }
 
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
-        return $obj->update('grade s',$data,'id='.$id.' and user_id='.USER_ID);
+        return $obj->update('grade s',$data,'id='.$id);
     }
 
     public static function addOneGrade($data = array()){
@@ -65,10 +65,10 @@ class Model_Grade extends \Model
         echo $obj->getSql();exit;
     }
 
-    public static function getGradeListByUser(){
+    public static function getGradeListByUser($user_id){
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('grade s',[]);
-        $obj->addAndWhere('user_id='.USER_ID);
+        $obj->addAndWhere('user_id='.$user_id);
         $obj->addOrderBy('grade','desc');
 
         return $obj->query(false);

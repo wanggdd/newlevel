@@ -10,8 +10,8 @@ class Model_Member extends \Model
         if (!$user_id) {
             return fasle;
         }
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
-        $obj->from('member s');
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('member s',[]);
         $obj->addAndWhere('user_user_id=' . $user_id);
 
         return $obj->query(faslse);
@@ -23,7 +23,7 @@ class Model_Member extends \Model
             return false;
         }
 
-        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Pluginl'));
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
 
         $info = self::getMemberById($user_user_id);
         if ($info){

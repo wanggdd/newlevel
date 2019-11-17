@@ -11,9 +11,8 @@ $uid = USER_ID;
 
 use Model\WebPlugin\Model_MemberList;
 
-$memberlist = Model_MemberList::getMemberList();
-$member_number = Model_MemberList::getMemberCount();
-//var_dump($memberlist);exit;
+$memberlist = Model_MemberList::getMemberList(array('user_id'=>$uid));
+$member_number = Model_MemberList::getMemberCount(array('user_id'=>$uid));
 $page  = intval($_POST['page']);
 if($page<1){
     $page = 1;

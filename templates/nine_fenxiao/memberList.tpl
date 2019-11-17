@@ -180,17 +180,7 @@
                                 </table>
                             </div>
                             <div class="pagination text-center">
-                                    <span class="page-limits">
-                                        <select>
-                                            <option value="10条/页">10条/页</option>
-                                            <option value="20条/页">20条/页</option>
-                                            <option value="30条/页">30条/页</option>
-                                            <option value="40条/页">40条/页</option>
-                                        </select>
-                                    </span>
                                <{$page_str}>
-                                <span class="page-skip">到第<input type="text" size="2" maxlength="5">页<button
-                                            class="btn btn-default">确定</button></span>
                                 <span class="page-sum">共<em><{$totalpage}></em>页</span>
                             </div>
                         </div>

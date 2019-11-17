@@ -21,7 +21,10 @@
                             <form action="" class="form-element basic-function-form" method="post">
                                 <div class="filter-form">
                                     <div class="form-element">
-                                        <button type="button" class="btn btn-primary"><i class="evicon evicon-plus-1"></i><span>添加</span></button>
+                                        <button type="button" data-action="addGrade" class="btn btn-primary">
+                                            <i class="evicon evicon-plus-1"></i>
+                                            <span>添加</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="data-table" data-toggle="allSelect" data-all-name="checkbox_all" data-target-name="checkbox_item">
@@ -151,7 +154,7 @@
     </div>
 </div>
 
-<{include file='nine_fenxiao//foot.tpl'}>
+<{include file='nine_fenxiao/foot.tpl'}>
 <script>
     $(function () {
         var memberGrade = $('#memberGrade');
@@ -163,11 +166,11 @@
 
                 switch (action) {
                     case 'upset':
-                        publicFun.winIframe('promote.php?id='+id, 490, 320, '晋升设置');
+                        publicFun.winIframe('/NineFenXiao/promote.php?id='+id, 490, 320, '晋升设置');
                         break;
                     case 'meset':
                     case 'mechange':
-                        publicFun.winIframe('memberSet.php?id='+id, 800, 800, '初始用户等级');
+                        publicFun.winIframe('/NineFenXiao/memberSet.php?id='+id, 800, 800, '初始用户等级');
                         break;
                     case 'del':
                         publicFun.confirm('确定要删除吗',function(){
@@ -175,6 +178,18 @@
                         });
                         break;
                 }
+            },
+            blur: function(ev){
+                var $this = $(this),
+                    action = $this.data('action');
+                if(action==='sort'){
+                    var val = $this.val();
+                    if(isNaN(val) || (!isNaN(val) && val > 9)){
+                        publicFun.point('请输入合法的数字', 0);
+                        $this.select();
+                    }
+                }
+
             }
         }, '[data-action]');
     });

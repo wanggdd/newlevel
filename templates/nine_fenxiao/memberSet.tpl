@@ -1,4 +1,4 @@
-<{include file='./head.tpl'}>
+<{include file='nine_fenxiao/head.tpl'}>
 
 <div class="member-set-alert" id="memberSet">
     <div class="filter-form">
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <form action="" class="form-element" method="post">
+    <form action="" class="form-element" method="post" id="insert_form">
     <div class="data-table" data-toggle="allSelect" data-all-name="checkbox_all" data-target-name="checkbox_item">
 
         <table class="table table-no-outer-border table-spacing-lg">
@@ -82,45 +82,18 @@
                             </label>
                         </td>
                     </tr>
-                    <tr class="text-center vertical-middle">
-                        <td>
-                            <{$item.user_name}>测试用
-                        </td>
-                        <td>
-                            <{$item.user_grade}>
-                        </td>
-                        <td>
-                            <{$item.nick_name}>
-                        </td>
-                        <td>
-                            <{$item.mobile}>
-                        </td>
-                        <td>
-                            <label class="radio-element">
-                                <input type="radio" name="user_user_id" value="8" <{if $info.user_user_id==$item.id}>checked<{/if}>>
-                                <i class="dot"></i>
-                            </label>
-                        </td>
-                    </tr>
                 <{/foreach}>
             <{/if}>
             </tbody>
         </table>
     </div>
     <div class="pagination text-center">
-            <span class="page-number">
-                <a class="disabled" href="###" data-page="1">上一页</a>
-                <a href="###" data-page="1">1</a>
-                <b>2</b>
-                <a href="###" data-page="3">3</a>
-                <a href="###" data-page="4">4</a>
-                <a href="###" data-page="5">5</a>
-                <a href="###" data-page="3">下一页</a>
-            </span>
+        <{$page_str}>
+        <span class="page-sum">共<em><{$totalpage}></em>页</span>
     </div>
     <div class="submit-btn-area">
         <button type="button" data-action="cancel" class="btn btn-ouprimarytline-danger"><span>取消</span></button>
-        <button type="submit" data-action="enter" class="btn btn-"><span>确定</span></button>
+        <button type="submit" data-action="enter" class="btn btn-primary"><span>确定</span></button>
         <input type="hidden" name="id" value="<{$info.id}>">
         <input type="hidden" name="type" value="up">
     </div>
@@ -128,7 +101,7 @@
 
 </div>
 
-<{include file='./foot.tpl'}>
+<{include file='nine_fenxiao/foot.tpl'}>
 
 <script>
     $(function () {
