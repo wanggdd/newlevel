@@ -1,4 +1,5 @@
 <?php
+error_reporting(ALL);
 
 include_once __dir__.'/../setting.php';
 
@@ -18,7 +19,7 @@ if(!$id){
 }
 
 //修改等级初始用户&修改用户等级
-if($id && isset($_POST['type']) && $_POST['type'] == 'up'){
+if($id && isset($_POST['type']) && $_POST['type'] == '1'){
     $fail = '';
     if(intval($_POST['user_user_id']) <=0){
         $fail = 'no_user';
@@ -28,17 +29,40 @@ if($id && isset($_POST['type']) && $_POST['type'] == 'up'){
         echo json_encode(['status'=>'fail','msg'=>$fail]);
         exit;
     }
-
     Model_Grade::upOneGrade(array('user_user_id' => $_POST['user_user_id']),$id);
     $_POST['grade_id'] = $id;
 
     $member_info = Model_Member::getMemberById($_POST['user_user_id']);
     if($member_info){
         $result = Model_Member::upOneMember($_POST);
+        if($result){
+            header('Content-type: application/json');
+            echo json_encode(['status'=>'success','msg'=>'']);
+            exit;
+        }else{
+            header('Content-type: application/json');
+            echo json_encode(['status'=>'fail','msg'=>'']);
+            exit;
+        }
     }else{
-
+        $data = array(
+            'user_id' => $uid,
+            'user_user_id'      => $_POST['user_user_id'],
+            'status'            => 2,
+            'grade'             => $id,
+            'create_time'       => time(),
+        );
+        $result = Model_Member::addOneMember($data);
+        if($result){
+            header('Content-type: application/json');
+            echo json_encode(['status'=>'success','msg'=>'']);
+            exit;
+        }else{
+            header('Content-type: application/json');
+            echo json_encode(['status'=>'fail','msg'=>'']);
+            exit;
+        }
     }
-
 
 }
 

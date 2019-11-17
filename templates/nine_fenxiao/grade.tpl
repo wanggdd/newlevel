@@ -88,12 +88,12 @@
                                         <tr class="text-center vertical-middle">
                                             <td>
                                                 <div class="input-element">
-                                                    <input type="text" size="5">
+                                                    <input type="text" size="5" name="grade[]">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-element">
-                                                    <input type="text" size="15">
+                                                    <input type="text" size="15" name="title[]">
                                                 </div>
                                             </td>
                                             <td>
@@ -177,20 +177,12 @@
                             publicFun.point('删除成功', 1);
                         });
                         break;
+                    case 'addGrade':
+                        publicFun.winIframe('/NineFenXiao/addgrade.php', 450, 350, '添加等级');
+                        break
                 }
-            },
-            blur: function(ev){
-                var $this = $(this),
-                    action = $this.data('action');
-                if(action==='sort'){
-                    var val = $this.val();
-                    if(isNaN(val) || (!isNaN(val) && val > 9)){
-                        publicFun.point('请输入合法的数字', 0);
-                        $this.select();
-                    }
-                }
-
             }
+
         }, '[data-action]');
     });
 </script>

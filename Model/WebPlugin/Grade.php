@@ -58,11 +58,9 @@ class Model_Grade extends \Model
         if(!$data){
             return false;
         }
-        var_dump($data);
 
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
-        $obj->insert('grade',$data);
-        echo $obj->getSql();exit;
+        return $obj->insert('grade',$data);
     }
 
     public static function getGradeListByUser($user_id){
@@ -70,6 +68,16 @@ class Model_Grade extends \Model
         $obj->from('grade s',[]);
         $obj->addAndWhere('user_id='.$user_id);
         $obj->addOrderBy('grade','desc');
+
+        return $obj->query(false);
+    }
+
+    public static function getMaxGrade($user_id){
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('grade s',['grade'=>'grade']);
+        $obj->addAndWhere('user_id='.$user_id);
+        $obj->addOrderBy('grade','desc');
+        $obj->setLimiter(0,1);
 
         return $obj->query(false);
     }

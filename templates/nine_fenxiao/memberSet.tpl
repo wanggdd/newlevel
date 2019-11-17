@@ -77,7 +77,7 @@
                         </td>
                         <td>
                             <label class="radio-element">
-                                <input type="radio" name="user_user_id" value="<{$item.id}>" <{if $info.user_user_id==$item.id}>checked<{/if}>>
+                                <input type="radio" id="user_user_id" name="user_user_id" value="<{$item.id}>" <{if $info.user_user_id==$item.id}>checked<{/if}>>
                                 <i class="dot"></i>
                             </label>
                         </td>
@@ -93,9 +93,8 @@
     </div>
     <div class="submit-btn-area">
         <button type="button" data-action="cancel" class="btn btn-ouprimarytline-danger"><span>取消</span></button>
-        <button type="submit" data-action="enter" class="btn btn-primary"><span>确定</span></button>
+        <button type="button" data-action="enter" class="btn btn-primary" onclick="set();"><span>确定</span></button>
         <input type="hidden" name="id" value="<{$info.id}>">
-        <input type="hidden" name="type" value="up">
     </div>
     </form>
 
@@ -104,6 +103,20 @@
 <{include file='nine_fenxiao/foot.tpl'}>
 
 <script>
+    function set(){
+        var id = <{$info.id}>;
+        var user_user_id = $("input[name='user_user_id']:checked").val();
+        $.post('/NineFenXiao/memberSet.php',{user_user_id:user_user_id,type:1,id:id},function(data,status){
+            if(data.status=='success'){
+                alert('设置成功!');
+                popup.popupClose();
+                window.location.reload();
+            }else{
+                alert('设置失败');
+            }
+        });
+    }
+
     $(function () {
         var memberSet = $('#memberSet');
         memberSet.on({

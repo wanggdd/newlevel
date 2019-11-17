@@ -38,6 +38,12 @@ class Model_Member extends \Model
         }
 
     }
+
+    public static function addOneMember($data = array()){
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        return $obj->insert('member',$data);
+    }
+
 }
 
 
