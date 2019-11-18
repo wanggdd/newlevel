@@ -10,9 +10,9 @@ class Model_Paymentrecord extends \Model
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('payment_record m',[]);
         if($enter == 'enter'){
-            $obj->leftJoin('user_user u',['user_name'=>'user_name','nick_name'=>'nick_name','input_time'=>'input_time','pic'=>'pic'],'m.enter_member=u.id');
-        }else{
             $obj->leftJoin('user_user u',['user_name'=>'user_name','nick_name'=>'nick_name','input_time'=>'input_time','pic'=>'pic'],'m.out_member=u.id');
+        }else{
+            $obj->leftJoin('user_user u',['user_name'=>'user_name','nick_name'=>'nick_name','input_time'=>'input_time','pic'=>'pic'],'m.enter_member=u.id');
         }
 
 

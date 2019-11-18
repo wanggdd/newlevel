@@ -47,10 +47,10 @@ if($memberlist){
         $memberlist[$key]['lower_num'] = $lower_num;
 
         //µÈ¼¶
-        $member_grade = Model_Grade::getOneGrade($item['grade']);
+        /*$member_grade = Model_Grade::getOneGrade($item['grade']);
         if($member_grade){
-            $memberlist[$key]['grade_val'] = $member_grade['grade'];
-        }
+            $memberlist[$key]['grade_val'] = $member_grade['title'];
+        }*/
     }
 }
 //var_dump($memberlist);exit;

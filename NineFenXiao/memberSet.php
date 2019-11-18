@@ -19,9 +19,9 @@ if(!$id){
 }
 
 //修改等级初始用户&修改用户等级
-if($id && isset($_POST['type']) && $_POST['type'] == '1'){
+if($id && isset($_GET['type']) && $_GET['type'] == '1'){
     $fail = '';
-    if(intval($_POST['user_user_id']) <=0){
+    if(intval($_GET['user_user_id']) <=0){
         $fail = 'no_user';
     }
     if($fail){
@@ -29,25 +29,19 @@ if($id && isset($_POST['type']) && $_POST['type'] == '1'){
         echo json_encode(['status'=>'fail','msg'=>$fail]);
         exit;
     }
-    Model_Grade::upOneGrade(array('user_user_id' => $_POST['user_user_id']),$id);
-    $_POST['grade_id'] = $id;
+    Model_Grade::upOneGrade(array('user_user_id' => $_GET['user_user_id']),$id);
 
-    $member_info = Model_Member::getMemberById($_POST['user_user_id']);
+    $member_info = Model_Member::getMemberById($_GET['user_user_id']);
     if($member_info){
-        $result = Model_Member::upOneMember($_POST);
-        if($result){
-            header('Content-type: application/json');
-            echo json_encode(['status'=>'success','msg'=>'']);
-            exit;
-        }else{
-            header('Content-type: application/json');
-            echo json_encode(['status'=>'fail','msg'=>'']);
-            exit;
-        }
+        $data = array('grade'=>$id,'status'=>2);
+        Model_Member::upOneMember($data,$_GET['user_user_id']);
+        header('Content-type: application/json');
+        echo json_encode(['status'=>'success','msg'=>'']);
+        exit;
     }else{
         $data = array(
             'user_id' => $uid,
-            'user_user_id'      => $_POST['user_user_id'],
+            'user_user_id'      => $_GET['user_user_id'],
             'status'            => 2,
             'grade'             => $id,
             'create_time'       => time(),
@@ -73,11 +67,13 @@ $info = Model_Grade::getOneGrade($id);
 $gradeList = Model_Grade::getGradeListByUser($uid);
 //var_dump($gradeList);exit;
 
+
 $pagesize = 10;
-$page  = intval($_POST['page']);
+$page  = intval($_GET['page']);
 if($page<1){
     $page = 1;
 }
+$offset = ($page-1)*$pagesize;
 
 $user_info = Model_User::getUserList('user_id='.$uid.' and is_del=0',$offset,$pagesize);
 $user_number = Model_User::getUserCount('user_id='.$uid.' and is_del=0');

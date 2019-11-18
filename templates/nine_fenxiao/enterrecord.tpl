@@ -200,6 +200,7 @@
             return false;
         }
         $('#ids').val(opt);
+        $('#type').val('upgrade');
         publicFun.confirm('确定要修改吗',function(){
             $('#update_form').submit();
             //publicFun.point('修改成功', 1);

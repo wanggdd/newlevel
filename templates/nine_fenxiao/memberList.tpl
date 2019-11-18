@@ -128,7 +128,7 @@
                                                 <select name="grade[]<{$num}>">
                                                     <option value="0">µÈ¼¶Ñ¡Ôñ</option>
                                                     <{foreach key=k item=grade from=$grade_list}>
-                                                    <option value="<{$grade.id}>" <{if $grade.grade == $member.grade_val}>selected="selected"<{/if}>><{$grade.grade}></option>
+                                                    <option value="<{$grade.id}>" <{if $grade.id == $member.grade}>selected="selected"<{/if}>><{$grade.title}></option>
                                                     <{/foreach}>
                                                 </select>
                                                 <{/if}>

@@ -56,7 +56,7 @@
             if(data.status=='success'){
                 alert('…Ë÷√≥…π¶!');
                 winP.evPopup[winName].popupClose();
-                window.location.reload();
+                parent.location.reload();
             }else{
                 alert(data.msg);
             }

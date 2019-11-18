@@ -8,6 +8,8 @@ require_once(SYSTEM_ROOT."include/smarty_setting.php");
 $uid = USER_ID;
 
 use Model\WebPlugin\Model_Paymentrecord;
+use Model\WebPlugin\Model_Member;
+use Model\WebPlugin\Model_Grade;
 
 $user_user_id = $_REQUEST['user_user_id'];
 if(!$user_user_id){
@@ -30,12 +32,41 @@ if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1'){
     $smarty->assign("end_date",$_GET['end_date']);
     $smarty->assign("search_mix",$_GET['search_mix']);
 }
-
+//修改状态
 if(isset($_GET['type']) && $_GET['type'] == 'upgrade'){
     $ids_arr = explode(',',$_GET['ids']);
     $status = $_GET['status'];
     foreach($ids_arr as $key=>$item){
         Model_Paymentrecord::upRecord(array('status'=>intval($status[$key])),intval($item));
+        //判断如果是将状态改为"已收款"，则需要判断是否需要晋升或者激活
+        if($status[$key] == 2){
+            $info = Model_Paymentrecord::getRecordById(intval($item));
+            $member = Model_Member::getMemberById($info[0]['enter_member']);
+            $member2 = Model_Member::getMemberById($info[0]['out_member']);
+            if($member2[0]['status'] == 1){//未激活
+                //todo
+                Model_Member::active($member2[0]['user_user_id']);
+            }
+            if($member[0]['status'] == 2){
+                //todo
+                Model_Grade::promote($uid,$member[0]['user_user_id']);
+            }
+        }else{
+            //拒绝和待收款判断是否需要降级
+            $member = Model_Member::getMemberById($info[0]['out_member']);
+            $grade_id = $member[0]['grade'];
+            $grade_info = Model_Grade::getGradeById($grade_id,$uid);
+            $lower_count = Model_Member::getLowerCount($info[0]['out_member']);
+
+            //获取当前的收款记录
+            $enter_count = Model_Paymentrecord::getRecordCount(array('enter_member'=>$info[0]['out_member'],'payment_type'=>1,'status'=>2));
+            if(($grade_info[0]['promote_lower_num'] > $lower_count) || ($grade_info[0]['promote_lower_num'] > $enter_count)){
+                //需要降级
+                $lower_grade = Model_Grade::getNextGrade($uid,$grade_id,'small');
+                Model_Member::upOneMember(array('grade'=>$lower_grade),$info[0]['out_member']);
+            }
+        }
+
     }
 
     $smarty->assign("start_date",$_GET['start_date']);

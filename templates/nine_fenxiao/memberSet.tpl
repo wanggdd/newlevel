@@ -25,16 +25,16 @@
                                 </select>
                             </div>
                             <div class="input-element-joint" data-toggle="datePicker" data-date-type="YYYY-MM-DD"
-                                 data-date-max="2019-01-02" data-date-min="2018-01-09" data-date-isrange="1">
+                                 data-date-max="2100-01-02" data-date-min="2018-01-09" data-date-isrange="1">
                                 <div class="input-element prefix">
                                     <input size="10" type="text" readonly="readonly" placeholder="开始时间"
-                                           value="2018-01-09" name="start_time">
+                                           value="<{$start_date}>" name="start_time">
                                     <i class="evicon evicon-date-1"></i>
                                 </div>
                                 <i class="joint-line">-</i>
                                 <div class="input-element prefix">
                                     <input size="10" type="text" readonly="readonly" placeholder="结束时间"
-                                           value="2019-01-09" name="end_time">
+                                           value="<{$end_date}>" name="end_time">
                                     <i class="evicon evicon-date-1"></i>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <form action="" class="form-element" method="post" id="insert_form">
+    <form action="" class="form-element" method="get" id="insert_form">
     <div class="data-table" data-toggle="allSelect" data-all-name="checkbox_all" data-target-name="checkbox_item">
 
         <table class="table table-no-outer-border table-spacing-lg">
@@ -110,7 +110,7 @@
             if(data.status=='success'){
                 alert('设置成功!');
                 popup.popupClose();
-                window.location.reload();
+                parent.location.reload();
             }else{
                 alert('设置失败');
             }

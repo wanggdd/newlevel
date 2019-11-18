@@ -10,7 +10,7 @@
                         <option value="0">Ñ¡ÔñµÈ¼¶</option>
                         <{if $grade_list}>
                             <{foreach key=key item=item from=$grade_list}>
-                                <option value="<{$item.id}>"><{$item.grade}></option>
+                                <option value="<{$item.id}>"><{$item.title}></option>
                             <{/foreach}>
                         <{/if}>
                     </select>
