@@ -12,22 +12,19 @@ use Model\WebPlugin\Model_Grade;
 if($_POST){
     $grade = intval($_POST['grade']);
     $title = $_POST['title'];
-    $grade_info = Model_Grade::getGradeByUserGrade($grade,$uid);
+    $grade_info = Model_Grade::getGradeByTitle($title,$uid);
     $error = false;
-    if($grade > 9){
+    /*if($grade > 9){
         $error = true;
-    }
+    }*/
     if($grade_info){
         $error = true;
     }
 
-    $max_grade_info = Model_Grade::getMaxGrade($uid);
-    $max_grade = intval($max_grade_info['grade']);
-
-    if(($grade-$max_grade) == 1){
-        Model_Grade::addOneGrade(array('grade'=>$grade,'title'=>$title,'user_id'=>$uid));
-    }else{
-        $error = true;
+    if(!$error){
+        $addinfo = Model_Grade::addOneGrade(array('grade'=>$grade,'title'=>$title,'user_id'=>$uid));
+        if(!$addinfo)
+            $error = true;
     }
 
     if($error){

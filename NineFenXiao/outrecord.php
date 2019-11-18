@@ -14,37 +14,47 @@ if(!$user_user_id){
     die();
 }
 
-//获取收款记录
+//获取打款记录
 $where = array('m.out_member'=>$user_user_id,'enter'=>'out');
-if(isset($_POST['type']) && $_POST['type'] == 'search' && $_POST['all'] != '1'){
-    if($_POST['start_date']){
-        $where['start_date'] = $_POST['start_date'];
+if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1'){
+    if($_GET['start_date']){
+        $where['start_date'] = $_GET['start_date'];
     }
-    if($_POST['end_date']){
-        $where['end_date'] = $_POST['end_date'];
+    if($_GET['end_date']){
+        $where['end_date'] = $_GET['end_date'];
     }
-    if($_POST['search_mix']){
-        $where['search_mix'] = $_POST['search_mix'];
+    if($_GET['search_mix']){
+        $where['search_mix'] = $_GET['search_mix'];
     }
-    $smarty->assign("start_date",$_POST['start_date']);
-    $smarty->assign("end_date",$_POST['end_date']);
-    $smarty->assign("search_mix",$_POST['search_mix']);
 }
 
-if(isset($_POST['type']) && $_POST['type'] == 'updatestatus'){
-    $ids_arr = explode(',',$_POST['ids']);
-    $status = $_POST['status'];
+//var_dump($_GET);exit;
+//修改等级
+if(isset($_GET['type']) && $_GET['type'] == 'upgrade'){
+    $ids_arr = explode(',',$_GET['ids']);
+    $status = $_GET['status'];
     foreach($ids_arr as $key=>$item){
         Model_Paymentrecord::upRecord(array('status'=>intval($status[$key])),intval($item));
     }
-
-    $smarty->assign("start_date",$_POST['start_date']);
-    $smarty->assign("end_date",$_POST['end_date']);
-    $smarty->assign("search_mix",$_POST['search_mix']);
 }
 
+//删除数据
+if(isset($_GET['type']) && $_GET['type'] == 'delgrade'){
+    $ids_arr = explode(',',$_GET['ids']);
+    foreach($ids_arr as $key=>$item){
+        Model_Paymentrecord::delRecord($item);
+    }
+}
 
-$record_list = Model_Paymentrecord::getRecordList($where);
+$page  = intval($_GET['page']);
+if($page<1){
+    $page = 1;
+}
+
+$pagesize = 20;
+$offset = ($page-1)*$pagesize;
+
+$record_list = Model_Paymentrecord::getRecordList($where,$offset,$pagesize);
 //var_dump($record_list);exit;
 $enter_count = Model_Paymentrecord::getRecordCount($where);
 if($record_list){
@@ -58,12 +68,6 @@ if($record_list){
     }
 }
 
-$page  = intval($_POST['page']);
-if($page<1){
-    $page = 1;
-}
-
-$pagesize = 10;
 $totalpage = ceil($enter_count/$pagesize);
 $page = new Pager($enter_count,$page,$pagesize);
 $page_str = $page->GetPagerContent();
@@ -73,6 +77,9 @@ $smarty->assign("enter_count",$enter_count);
 $smarty->assign("totalpage",$totalpage);
 $smarty->assign("page_str",$page_str);
 
+$smarty->assign("start_date",$_GET['start_date'] ? $_GET['start_date'] : '');
+$smarty->assign("end_date",$_GET['end_date'] ? $_GET['end_date'] : '');
+$smarty->assign("search_mix",$_GET['search_mix'] ? $_GET['search_mix'] : '');
 
 $smarty->assign("title",'打款记录');
 $smarty->assign("action",'memberlist');

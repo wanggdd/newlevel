@@ -8,6 +8,7 @@ class Model_Grade extends \Model
     public static function getGrade($user_id){
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('grade s',[]);
+        $obj->addAndWhere('is_del=0');
         $obj->addAndWhere('user_id='.$user_id);
 
         $info = $obj->query(false);
@@ -26,6 +27,7 @@ class Model_Grade extends \Model
         }
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('grade s',[]);
+        $obj->addAndWhere('is_del=0');
         $obj->addAndWhere('id='.$id);
 
         $info = $obj->query(false);
@@ -40,7 +42,34 @@ class Model_Grade extends \Model
 
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('grade s',[]);
+        $obj->addAndWhere('is_del=0');
         $obj->addAndWhere('grade='.$grade.' and user_id='.$user_id);
+
+        return $obj->query(false);
+    }
+
+    public static function getGradeById($id = 0,$user_id = 0){
+        if(!$id || !$user_id){
+            return false;
+        }
+
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('grade s',[]);
+        $obj->addAndWhere('is_del=0');
+        $obj->addAndWhere('id='.$id.' and user_id='.$user_id);
+
+        return $obj->query(false);
+    }
+
+    public static function getGradeByTitle($title = '',$user_id = 0){
+        if(!$title || !$user_id){
+            return false;
+        }
+
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->from('grade s',[]);
+        $obj->addAndWhere('is_del=0');
+        $obj->addAndWhere('title="'.$title.'" and user_id='.$user_id);
 
         return $obj->query(false);
     }
@@ -66,8 +95,9 @@ class Model_Grade extends \Model
     public static function getGradeListByUser($user_id){
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('grade s',[]);
+        $obj->addAndWhere('is_del=0');
         $obj->addAndWhere('user_id='.$user_id);
-        $obj->addOrderBy('grade','asc');
+        $obj->addOrderBy('grade','desc');
 
         return $obj->query(false);
     }
@@ -75,6 +105,7 @@ class Model_Grade extends \Model
     public static function getMaxGrade($user_id){
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('grade s',['grade'=>'grade']);
+        $obj->addAndWhere('is_del=0');
         $obj->addAndWhere('user_id='.$user_id);
         $obj->addOrderBy('grade','desc');
         $obj->setLimiter(0,1);

@@ -10,11 +10,11 @@ class Model_MemberList extends \Model
         $obj->leftJoin('user_user u',[],'m.user_user_id=u.id');
 
         if(isset($where['start_date'])){
-            $obj->addAndWhere('u.input_time>='.$where['start_date']);
+            $obj->addAndWhere('u.input_time>="'.$where['start_date'].'"');
             unset($where['start_date']);
         }
         if(isset($where['end_date'])){
-            $obj->addAndWhere('u.input_time<='.$where['end_date']);
+            $obj->addAndWhere('u.input_time<="'.$where['end_date'].'"');
             unset($where['end_date']);
         }
         if(isset($where['search_mix'])){
@@ -38,11 +38,11 @@ class Model_MemberList extends \Model
         $obj->leftJoin('user_user u',[],'m.user_user_id=u.id');
 
         if(isset($where['start_date'])){
-            $obj->addAndWhere('u.input_time>='.$where['start_date']);
+            $obj->addAndWhere('u.input_time>="'.$where['start_date'].'"');
             unset($where['start_date']);
         }
         if(isset($where['end_date'])){
-            $obj->addAndWhere('u.input_time<='.$where['end_date']);
+            $obj->addAndWhere('u.input_time<="'.$where['end_date'].'"');
             unset($where['end_date']);
         }
         if(isset($where['search_mix'])){

@@ -14,26 +14,33 @@ use Model\WebPlugin\Model_Grade;
 use Model\WebPlugin\Model_Member;
 
 $where = array('u.user_id'=>$uid);
-if(isset($_POST['type']) && $_POST['type'] == 'search' && $_POST['all'] != '1'){
-    if($_POST['start_date']){
-        $where['start_date'] = $_POST['start_date'];
+if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1'){
+    if($_GET['start_date']){
+        $where['start_date'] = $_GET['start_date'];
     }
-    if($_POST['end_date']){
-        $where['end_date'] = $_POST['end_date'];
+    if($_GET['end_date']){
+        $where['end_date'] = $_GET['end_date'];
     }
-    if($_POST['search_mix']){
-        $where['search_mix'] = $_POST['search_mix'];
+    if($_GET['search_mix']){
+        $where['search_mix'] = $_GET['search_mix'];
     }
-    $smarty->assign("start_date",$_POST['start_date']);
-    $smarty->assign("end_date",$_POST['end_date']);
-    $smarty->assign("search_mix",$_POST['search_mix']);
+    $smarty->assign("start_date",$_GET['start_date']);
+    $smarty->assign("end_date",$_GET['end_date']);
+    $smarty->assign("search_mix",$_GET['search_mix']);
 }
 
-$memberlist = Model_MemberList::getMemberList($where);
+$page  = intval($_GET['page']);
+if($page<1){
+    $page = 1;
+}
+
+$pagesize = 20;
+$offset = ($page-1)*$pagesize;
+
+$memberlist = Model_MemberList::getMemberList($where,$offset,$pagesize);
 if($memberlist){
     foreach($memberlist as $key=>$item){
         $memberlist[$key]['pic'] = $item['pic'] ? $item['pic'] : 'http://aimg8.dlszyht.net.cn/default/user_user_profile.jpg';
-        //$memberlist[$key]['nick_name'] = $item['nick_name'] ? $item['nick_name'] : $item['user_name'];
 
         //下级数量
         $lower_num = Model_Member::getLowerCount($item['user_user_id']);
@@ -48,12 +55,7 @@ if($memberlist){
 }
 //var_dump($memberlist);exit;
 $member_number = Model_MemberList::getMemberCount($where);
-$page  = intval($_POST['page']);
-if($page<1){
-    $page = 1;
-}
 
-$pagesize = 10;
 $totalpage = ceil($member_number/$pagesize);
 $page = new Pager($member_number,$page,$pagesize);
 $page_str = $page->GetPagerContent();

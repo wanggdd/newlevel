@@ -27,7 +27,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <p style="color: #0090ff;">支持1-9级，请按顺序依次填写。</p>
+                                <p style="color: #0090ff;">排序和等级名称不允许重复，排序越大，等级越高。等级名称一旦添加不可修改！</p>
                                 <div class="data-table" data-toggle="allSelect" data-all-name="checkbox_all" data-target-name="checkbox_item">
                                     <table class="table table-no-outer-border table-spacing-lg">
                                         <colgroup>
@@ -39,7 +39,7 @@
                                         </colgroup>
                                         <thead>
                                         <tr class="active text-center">
-                                            <th>等级</th>
+                                            <th>排序</th>
                                             <th>等级名称</th>
                                             <th>初始会员</th>
                                             <th>晋升金额</th>
@@ -58,7 +58,7 @@
                                             </td>
                                             <td>
                                                 <div class="input-element">
-                                                    <input type="text" size="15" name="title[]<{$key}>" value="<{$item.title}>">
+                                                    <input type="text" size="15" name="title[]<{$key}>" disabled value="<{$item.title}>">
                                                 </div>
                                             </td>
                                             <td>
@@ -80,7 +80,7 @@
                                             <td>
                                                 <div class="href-area">
                                                     <a href="###" data-action="upset" data-id="<{$item.id}>">晋升设置</a>
-                                                    <a href="###" data-action="del">删除</a>
+                                                    <a data-action="del" data-id="<{$item.id}>" href="###">删除</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -172,7 +172,18 @@
                         break;
                     case 'del':
                         publicFun.confirm('确定要删除吗',function(){
-                            publicFun.point('删除成功', 1);
+                            $.post('/NineFenXiao/grade.php',{id:id,del:1},function(data,status){
+                                if(data.code=='1'){
+                                    alert('删除成功!');
+                                    //popup.popupClose();
+                                    window.location.reload();
+                                }else if(data.code=='2'){
+                                    alert('此等级下存在会员，请先将会员进行移植！');
+                                }else{
+                                    alert('删除失败，请稍后重试！');
+                                }
+                            });
+                            //publicFun.point('删除成功', 1);
                         });
                         break;
                     case 'addGrade':

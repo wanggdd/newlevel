@@ -1,4 +1,7 @@
 <{include file='nine_fenxiao/head.tpl'}>
+<style>
+    .current{background-color:#0090FF}
+</style>
 <div class="paid-item-wrap">
     <div class="panel paid-item-head">
         <div class="panel-body">
@@ -21,7 +24,7 @@
                             <div class="filter-form">
                                 <div class="form-element">
                                     <div class="form-item-group">
-                                        <form method="post" action="">
+                                        <form method="get" action="">
                                         <div class="form-item">
                                             <label class="item-label">注册时间：</label>
                                             <div class="item-con">
@@ -154,7 +157,7 @@
                                                 <span class="checkbox-label">全选</span>
                                             </label>
                                             <button type="button" class="btn btn-sm btn-primary" data-action="changeAllGrade"><span>批量修改等级</span></button>
-                                            <button type="button" class="btn btn-sm btn-primary"><a href="/NineFenXiao/export.php?start_date=<{$start_date}>&end_date=<{$end_date}>&search_mix=<{$search_mix}>"><span>批量导出</span></a> </button>
+                                            <button type="button" class="btn btn-sm btn-primary"><a href="/NineFenXiao/export.php?start_date=<{$start_date}>&end_date=<{$end_date}>&search_mix=<{$search_mix}>"><span style="color:#ffffff">批量导出</span></a> </button>
                                         </td>
                                     </tr>
                                     </tfoot>

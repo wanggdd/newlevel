@@ -21,7 +21,7 @@
                         <div class="tab-panel-item active member-list-panel-item" id="memberList">
                             <div class="filter-form">
                                 <div class="form-element">
-                                    <form method="post" action="">
+                                    <form method="get" action="">
                                     <div class="form-item">
                                         <label class="item-label">打款时间：</label>
                                         <div class="item-con">
@@ -45,9 +45,10 @@
                                             <div class="input-element">
                                                 <input type="text" placeholder="用户名|昵称|手机号" size="30" name="search_mix" value="<{$search_mix}>">
                                             </div>
-                                            <button type="button" class="btn btn-primary"><span>搜索</span></button>
-                                            <button type="button" name="all" value="1" class="btn btn-outline-danger"><span>查看全部</span></button>
+                                            <button type="submit" class="btn btn-primary"><span>搜索</span></button>
+                                            <button type="submit" name="all" value="1" class="btn btn-outline-danger"><span>查看全部</span></button>
                                             <input type="hidden" name="type" value="search">
+
                                             <div class="right-btn-area pull-right">
                                                 <a href="/ninefenxiao/memberlist.php" type="button" class="btn btn-outline-danger"><span>返回</span></a>
                                                 <div type="button" class="btn btn-outline-danger"><i class="evicon evicon-leading-in-1"></i>
@@ -59,7 +60,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <form method="post" action="" id="update_form">
+                            <form method="get" action="" id="update_form">
                             <div class="data-table" data-toggle="allSelect" data-all-name="checkbox_all" data-target-name="checkbox_item">
                                 <table class="table table-no-outer-border table-spacing-lg">
                                     <thead>
@@ -129,9 +130,9 @@
                                                 <i class="dot evicon evicon-right-2"></i>
                                                 <span class="checkbox-label">全选</span>
                                             </label>
-                                            <button type="button" class="btn btn-sm btn-primary" data-action="changeAllGrade" onclick="set()"><span>修改</span></button>
-                                            <button type="button" class="btn btn-sm btn-primary"><span>删除</span></button>
-                                            <input type="hidden" name="type" value="updatestatus">
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="set()"><span>修改</span></button>
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="del_set()"><span>删除</span></button>
+                                            <input type="hidden" name="type" id="type">
                                             <input type="hidden" name="user_user_id" value="<{$user_user_id}>">
                                             <input type="hidden" name="ids" id="ids">
                                         </td>
@@ -140,12 +141,10 @@
                                 </table>
                             </div>
                             </form>
-                            <{if $memberlist}>
                             <div class="pagination text-center">
                                 <{$page_str}>
                                 <span class="page-sum">共<em><{$totalpage}></em>页</span>
                             </div>
-                            <{/if}>
 
                         </div>
                     </div>
@@ -157,6 +156,32 @@
 <{include file='nine_fenxiao/foot.tpl'}>
 
 <script>
+    function del_set(){
+        var opt = "";
+        $("input[name='checkbox_item']").each(function () {
+            if ($(this).is(":checked")) {
+                var check_val = $(this).val();
+                if(opt == '')
+                    opt += check_val;
+                else
+                    opt += ',' + check_val;
+            } else {
+                opt += "";
+            }
+        });
+        if(opt == ''){
+            alert('请先选择需要删除的数据');
+            return false;
+        }
+        $('#ids').val(opt);
+        $('#type').val('delgrade');
+        publicFun.confirm('确定要删除吗',function(){
+            $('#update_form').submit();
+            //publicFun.point('修改成功', 1);
+        });
+    }
+
+
     function set(){
         var opt = "";
         $("input[name='checkbox_item']").each(function () {

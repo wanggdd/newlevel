@@ -65,12 +65,14 @@ class Model_Paymentrecord extends \Model
             unset($where['search_mix']);
         }
 
+        unset($where['enter']);
         foreach ($where as $k=>$v){
             $where_sql = $k.'='.$v;
             $obj->addAndWhere($where_sql);
         }
-        unset($where['enter']);
+
         $obj->addAndWhere('m.is_del=0');
+        //echo $obj->getSQL();exit;
         return $obj->count();
     }
 
@@ -85,8 +87,11 @@ class Model_Paymentrecord extends \Model
 
     public static function upRecord($data,$id){
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
-        $obj->update('payment_record',$data,'id='.$id);
         return $obj->update('payment_record',$data,'id='.$id);
+    }
 
+    public static function delRecord($id){
+        $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
+        $obj->update('payment_record',array('is_del'=>1),'id='.$id);
     }
 }

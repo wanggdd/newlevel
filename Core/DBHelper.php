@@ -284,7 +284,7 @@ class DBHelper
     *说明：获取完整的SQL语句
     *返回类型：字符串。
     */
-    private function getSQL()
+    public function getSQL()
     {
         $tmp_sql = '';
         if ($this->limitArray) {
@@ -364,14 +364,14 @@ class DBHelper
          * 日志记录sql
          * 2017/11/16 aliang add
          */
-        if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['PC_COPY_OBJ']) {
+        /*if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['PC_COPY_OBJ']) {
             $GLOBALS['MYSPACE']['SQL'] = $sql;
             $GLOBALS['LOG']['PC_COPY_OBJ']->writeLog($sql);
         }
         if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['WAP_COPY_OBJ']) {
             $GLOBALS['MYSPACE']['SQL'] = $sql;
             $GLOBALS['LOG']['WAP_COPY_OBJ']->writeLog($sql);
-        }
+        }*/
 
         $this->db->query($sql);
         return $this->db->last_insert_id();
@@ -461,14 +461,14 @@ class DBHelper
          * 日志记录sql
          * 2017/11/16 aliang add
          */
-        if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['PC_COPY_OBJ']) {
+        /*if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['PC_COPY_OBJ']) {
             $GLOBALS['MYSPACE']['SQL'] = $sql;
             $GLOBALS['LOG']['PC_COPY_OBJ']->writeLog($sql);
         }
         if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['WAP_COPY_OBJ']) {
             $GLOBALS['MYSPACE']['SQL'] = $sql;
             $GLOBALS['LOG']['WAP_COPY_OBJ']->writeLog($sql);
-        }
+        }*/
 
         $this->db->query($sql);
         return $this->db->affected_rows();
@@ -489,14 +489,14 @@ class DBHelper
          * 日志记录sql
          * 2017/11/16 aliang add
          */
-        if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['PC_COPY_OBJ']) {
+        /*if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['PC_COPY_OBJ']) {
             $GLOBALS['MYSPACE']['SQL'] = $sql;
             $GLOBALS['LOG']['PC_COPY_OBJ']->writeLog($sql);
         }
         if ($GLOBALS['LOG']['IS_OPEN'] && $GLOBALS['LOG']['WAP_COPY_OBJ']) {
             $GLOBALS['MYSPACE']['SQL'] = $sql;
             $GLOBALS['LOG']['WAP_COPY_OBJ']->writeLog($sql);
-        }
+        }*/
 
         $this->db->query($sql);
         return $this->db->affected_rows();

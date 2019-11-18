@@ -48,7 +48,7 @@
     function set(){
         var grade = $('#grade').val();
         var title = $('#title').val();
-        if(isNaN(grade) || (!isNaN(grade) && grade > 9)){
+        if(isNaN(grade)){
             publicFun.point('请输入合法的数字', 0);
             $('#grade').select();
         }

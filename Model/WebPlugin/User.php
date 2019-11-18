@@ -14,7 +14,7 @@ class Model_User extends \Model
         return $obj->query(false);
     }
 
-    public static function getUserList($where = '',$start=0,$limit=10){
+    public static function getUserList($where = '',$start=0,$limit=20){
         $obj = \Factory::N('DBHelper', \Ebase::getDb('DB_Plugin_R'));
         $obj->from('user_user uu', []);
         $obj->addAndWhere($where);

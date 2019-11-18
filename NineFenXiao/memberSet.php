@@ -73,7 +73,13 @@ $info = Model_Grade::getOneGrade($id);
 $gradeList = Model_Grade::getGradeListByUser($uid);
 //var_dump($gradeList);exit;
 
-$user_info = Model_User::getUserList('user_id='.$uid.' and is_del=0');
+$pagesize = 10;
+$page  = intval($_POST['page']);
+if($page<1){
+    $page = 1;
+}
+
+$user_info = Model_User::getUserList('user_id='.$uid.' and is_del=0',$offset,$pagesize);
 $user_number = Model_User::getUserCount('user_id='.$uid.' and is_del=0');
 if($user_info){
     foreach($user_info as $key=>$item){
@@ -87,12 +93,7 @@ if($user_info){
     }
 }
 
-$page  = intval($_POST['page']);
-if($page<1){
-    $page = 1;
-}
 
-$pagesize = 10;
 $totalpage = ceil($user_number/$pagesize);
 $page = new Pager($user_number,$page,$pagesize);
 $page_str = $page->GetPagerContent();
