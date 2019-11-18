@@ -11,6 +11,7 @@ $uid = USER_ID;
 
 use Model\WebPlugin\Model_MemberList;
 use Model\WebPlugin\Model_Grade;
+use Model\WebPlugin\Model_Member;
 
 $where = array('u.user_id'=>$uid);
 if(isset($_POST['type']) && $_POST['type'] == 'search' && $_POST['all'] != '1'){
@@ -32,12 +33,20 @@ $memberlist = Model_MemberList::getMemberList($where);
 if($memberlist){
     foreach($memberlist as $key=>$item){
         $memberlist[$key]['pic'] = $item['pic'] ? $item['pic'] : 'http://aimg8.dlszyht.net.cn/default/user_user_profile.jpg';
-        $memberlist[$key]['nick_name'] = $item['nick_name'] ? $item['nick_name'] : $item['user_name'];
+        //$memberlist[$key]['nick_name'] = $item['nick_name'] ? $item['nick_name'] : $item['user_name'];
 
         //下级数量
-        $lower_num = \Model\WebPlugin\Model_Member::getMemberById();
+        $lower_num = Model_Member::getLowerCount($item['user_user_id']);
+        $memberlist[$key]['lower_num'] = $lower_num;
+
+        //等级
+        $member_grade = Model_Grade::getOneGrade($item['grade']);
+        if($member_grade){
+            $memberlist[$key]['grade_val'] = $member_grade['grade'];
+        }
     }
 }
+//var_dump($memberlist);exit;
 $member_number = Model_MemberList::getMemberCount($where);
 $page  = intval($_POST['page']);
 if($page<1){

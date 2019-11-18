@@ -48,7 +48,7 @@
                                             <label class="item-label">查找：</label>
                                             <div class="item-con">
                                                 <div class="input-element">
-                                                    <input type="text" placeholder="用户名|昵称|手机号" name="search_mix" size="30">
+                                                    <input type="text" placeholder="用户名|昵称|手机号" name="search_mix" size="30" value="<{$search_mix}>">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary"><span>搜索</span></button>
                                                 <button type="submit" name="all" value="1" class="btn btn-outline-danger"><span>查看全部</span></button>
@@ -89,7 +89,7 @@
                                     <tr class="text-center vertical-middle">
                                         <td>
                                             <label class="checkbox-element sm">
-                                                <input type="checkbox" name="checkbox_item">
+                                                <input type="checkbox" name="checkbox_item" value="<{$member.user_user_id}>">
                                                 <i class="dot evicon evicon-right-2"></i>
                                             </label>
                                         </td>
@@ -99,7 +99,7 @@
                                                             <span><img class="media-object" src="<{$member.pic}>"></span>
                                                 </div>
                                                 <div class="media-body">
-                                                    <p>用户名:<{$member.user_id}></p>
+                                                    <p>用户名:<{$member.user_name}></p>
                                                     <p>昵称:<{$member.nick_name}></p>
                                                     <p>手机:<{$member.mobile}></p>
                                                 </div>
@@ -111,10 +111,10 @@
                                                 <div class="input-element suffix" data-type="select"
                                                      data-multiple="0" data-toggle="dropdown">
                                                     <select name="status[]<{$num}>">
-                                                        <option value="0" <{if $member.status==0}>checked<{/if}>>无状态</option>
-                                                        <option value="1" <{if $member.status==1}>checked<{/if}>>未激活</option>
-                                                        <option value="2" <{if $member.status==2}>checked<{/if}>>已激活</option>
-                                                        <option value="3" <{if $member.status==3}>checked<{/if}>>空</option>
+                                                        <option value="0" <{if $member.status==0}>selected="selected"<{/if}>>无状态</option>
+                                                        <option value="1" <{if $member.status==1}>selected="selected"<{/if}>>未激活</option>
+                                                        <option value="2" <{if $member.status==2}>selected="selected"<{/if}>>已激活</option>
+                                                        <option value="3" <{if $member.status==3}>selected="selected"<{/if}>>空</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -125,19 +125,19 @@
                                                 <select name="grade[]<{$num}>">
                                                     <option value="0">等级选择</option>
                                                     <{foreach key=k item=grade from=$grade_list}>
-                                                    <option value="<{$grade.id}>"><{$grade.grade}></option>
+                                                    <option value="<{$grade.id}>" <{if $grade.grade == $member.grade_val}>selected="selected"<{/if}>><{$grade.grade}></option>
                                                     <{/foreach}>
                                                 </select>
                                                 <{/if}>
                                             </div>
                                         </td>
-                                        <td><span class="sub-text" data-action="lookSub"><{$member.lower_number}></span></td>
+                                        <td><span class="sub-text" data-action="lookSub"><{$member.lower_num}></span></td>
                                         <td><{$member.input_time}></td>
                                         <td>
                                             <div class="href-area">
-                                                <a data-action="lookQRCode" href="###"></a>
-                                                <a href="getMoney.html">收款记录</a>
-                                                <a href="payMoney.html">打款记录</a>
+                                                <a data-action="lookQRCode" data-id="<{$member.user_user_id}>" href="###">收款码</a>
+                                                <a href="/ninefenxiao/enterrecord.php?user_user_id=<{$member.user_user_id}>">收款记录</a>
+                                                <a href="/ninefenxiao/outrecord.php?user_user_id=<{$member.user_user_id}>">打款记录</a>
                                                 <a data-action="share" data-id="<{$member.user_user_id}>" href="###">分享二维码</a>
                                             </div>
                                         </td>
@@ -187,13 +187,29 @@
                     id = $this.data('id');
                 switch (action) {
                     case 'lookQRCode':
-                        publicFun.winIframe('memberList/lookQRCode.html', 410, 320, '更改收款码');
+                        publicFun.winIframe('/ninefenxiao/paymentcode.php?user_user_id='+id, 410, 320, '更改收款码');
                         break;
                     case 'lookSub':
                         publicFun.winIframe('memberList/lookSub.html', 520, 630, '下级信息');
                         break;
                     case 'changeAllGrade':
-                        publicFun.winIframe('memberList/changeAllGrade.html', 410, 290, '批量修改等级');
+                        var opt = "";
+                        $("input[name='checkbox_item']").each(function () {
+                            if ($(this).is(":checked")) {
+                                var check_val = $(this).val();
+                                if(opt == '')
+                                    opt += check_val;
+                                else
+                                    opt += ',' + check_val;
+                            } else {
+                                opt += "";
+                            }
+                        });
+                        if(opt == ''){
+                            alert('请先选择需要修改等级的会员');
+                            return false;
+                        }
+                        publicFun.winIframe('/NineFenXiao/batchUpgrade.php?user_ids='+opt, 410, 290, '批量修改等级');
                         break;
                     case 'share':
                         publicFun.winIframe('/NineFenXiao/share.php?user_user_id='+id, 410, 290, '分享二维码');

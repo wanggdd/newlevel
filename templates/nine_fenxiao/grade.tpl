@@ -99,16 +99,13 @@
                                             </td>
                                             <td>
                                                 <div class="member-set-area">
-                                                    <a class="text-primary" href="###" data-action="meset" data-id="<{$item.id}>">设置</a>
                                                 </div>
                                             </td>
                                             <td>
-                                                1440
+
                                             </td>
                                             <td>
                                                 <div class="href-area">
-                                                    <a href="###" data-action="upset">晋升设置</a>
-                                                    <a href="###" data-action="del">删除</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -183,18 +180,7 @@
                         break
                 }
             }
-            blur: function(ev){
-                var $this = $(this),
-                    action = $this.data('action');
-                if(action==='sort'){
-                    var val = $this.val();
-                    if(isNaN(val) || (!isNaN(val) && val > 9)){
-                        publicFun.point('请输入合法的数字', 0);
-                        $this.select();
-                    }
-                }
 
-            }
         }, '[data-action]');
     });
 </script>

@@ -14,8 +14,8 @@
                     </div>
                     -->
                     <select name="promote_lower_type" id="promote_lower_type" class="input-element suffix"  data-type="select">
-                        <option value="1" <{if $info.promote_lower_type==1}>checked<{/if}>> 大于 </option>
-                        <option value="2" <{if $info.promote_lower_type==2}>checked<{/if}>> 大于等于 </option>
+                        <option value="1" <{if $info.promote_lower_type==1}>selected="selected"<{/if}>> 大于 </option>
+                        <option value="2" <{if $info.promote_lower_type==2}>selected="selected"<{/if}>> 大于等于 </option>
                     </select>
                 </div>
                 <div class="input-element">

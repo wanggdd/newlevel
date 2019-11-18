@@ -39,7 +39,7 @@ class Model_Member extends \Model
 
         $info = self::getMemberById($user_user_id);
         if ($info){
-            return $obj->update('member s', $data, 'and user_id=' . USER_ID . ' and user_user_id=' . $user_user_id);
+            return $obj->update('member s', $data, 'user_id=' . USER_ID . ' and user_user_id=' . $user_user_id);
         }else{
             $data['user_id'] = USER_ID;
             $data['user_user_id'] = $user_user_id;
