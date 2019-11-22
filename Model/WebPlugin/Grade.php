@@ -176,18 +176,27 @@ class Model_Grade extends \Model
         /*获取当前会员的下级总数*/
         $lower_count = Model_Member::getLowerCount($user_user_id);
         /*晋升数量规则 1:大于等于  2:等于*/
+
+        //查找payment_record中成交的记录数
+        $people_num = Model_Paymentrecord::getCount($user_user_id);
+
         if($up_grade['promote_lower_type'] == 1){
             if($lower_count >= $up_grade['promote_lower_num']){
-                //晋升
-                self::upUserGrade('grade',$up_grade['id'],$user_user_id);
-                return true;
+                if($people_num['num'] >= $up_grade['promote_lower_num']){
+                    //晋升
+                    self::upUserGrade('grade',$up_grade['id'],$user_user_id);
+                    return true;
+                }
+
             }
         }
         if($up_grade['promote_lower_type'] == 2){
             if($lower_count = $up_grade['promote_lower_num']){
-                //晋升
-                self::upUserGrade('grade',$up_grade['id'],$user_user_id);
-                return true;
+                if($people_num['num'] = $up_grade['promote_lower_num']){
+                    //晋升
+                    self::upUserGrade('grade',$up_grade['id'],$user_user_id);
+                    return true;
+                }
             }
         }
 

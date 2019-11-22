@@ -62,6 +62,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <form method="get" action="" id="upform">
                             <div class="data-table" data-toggle="allSelect" data-all-name="checkbox_all" data-target-name="checkbox_item">
                                 <table class="table table-no-outer-border table-spacing-lg">
                                     <!-- <colgroup>
@@ -113,7 +114,7 @@
                                             <div class="select-element dropdown">
                                                 <div class="input-element suffix" data-type="select"
                                                      data-multiple="0" data-toggle="dropdown">
-                                                    <select name="status[]<{$num}>">
+                                                    <select name="status<{$member.user_user_id}>">
                                                         <option value="0" <{if $member.status==0}>selected="selected"<{/if}>>无状态</option>
                                                         <option value="1" <{if $member.status==1}>selected="selected"<{/if}>>未激活</option>
                                                         <option value="2" <{if $member.status==2}>selected="selected"<{/if}>>已激活</option>
@@ -125,7 +126,7 @@
                                         <td>
                                             <div class="select-element dropdown">
                                                 <{if $grade_list}>
-                                                <select name="grade[]<{$num}>">
+                                                <select name="grade<{$member.user_user_id}>">
                                                     <option value="0">等级选择</option>
                                                     <{foreach key=k item=grade from=$grade_list}>
                                                     <option value="<{$grade.id}>" <{if $grade.id == $member.grade}>selected="selected"<{/if}>><{$grade.title}></option>
@@ -156,14 +157,21 @@
                                                 <i class="dot evicon evicon-right-2"></i>
                                                 <span class="checkbox-label">全选</span>
                                             </label>
-                                            <button type="button" class="btn btn-sm btn-primary" data-action="changeAllGrade"><span>批量修改等级</span></button>
+                                            <button type="button" class="btn btn-sm btn-primary" data-action="changeAllGrade" onclick="set()"><span>批量修改等级</span></button>
+                                            <input type="hidden" name="start_date" value="<{$start_date}>">
+                                            <input type="hidden" name="end_date" value="<{$end_date}>">
+                                            <input type="hidden" name="search_mix" value="<{$search_mix}>">
+                                            <input type="hidden" name="type" value="upgrade">
+                                            <input type="hidden" name="ids" id="ids" value="">
                                             <button type="button" class="btn btn-sm btn-primary"><a href="/NineFenXiao/export.php?start_date=<{$start_date}>&end_date=<{$end_date}>&search_mix=<{$search_mix}>"><span style="color:#ffffff">批量导出</span></a> </button>
+
                                         </td>
                                     </tr>
                                     </tfoot>
                                     <{/if}>
                                 </table>
                             </div>
+                            </form>
                             <{if $memberlist}>
                             <div class="pagination text-center">
                                <{$page_str}>
@@ -181,6 +189,30 @@
 <{include file='nine_fenxiao/foot.tpl'}>
 
 <script>
+    function set(){
+        var opt = "";
+        $("input[name='checkbox_item']").each(function () {
+            if ($(this).is(":checked")) {
+                var check_val = $(this).val();
+                if(opt == '')
+                    opt += check_val;
+                else
+                    opt += ',' + check_val;
+            } else {
+                opt += "";
+            }
+        });
+        if(opt == ''){
+            alert('请先选择需要修改的会员');
+            return false;
+        }
+        $('#ids').val(opt);
+        publicFun.confirm('确定要修改吗',function(){
+            $('#upform').submit();
+            //publicFun.point('修改成功', 1);
+        });
+    }
+
     $(function () {
         var memberList = $('#memberList');
         memberList.on({
@@ -195,7 +227,7 @@
                     case 'lookSub':
                         publicFun.winIframe('memberList/lookSub.html', 520, 630, '下级信息');
                         break;
-                    case 'changeAllGrade':
+                    /*case 'changeAllGrade':
                         var opt = "";
                         $("input[name='checkbox_item']").each(function () {
                             if ($(this).is(":checked")) {
@@ -212,8 +244,9 @@
                             alert('请先选择需要修改等级的会员');
                             return false;
                         }
+
                         publicFun.winIframe('/NineFenXiao/batchUpgrade.php?user_ids='+opt, 410, 290, '批量修改等级');
-                        break;
+                        break;*/
                     case 'share':
                         publicFun.winIframe('/NineFenXiao/share.php?user_user_id='+id, 410, 290, '分享二维码');
                         break;

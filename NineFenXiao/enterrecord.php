@@ -35,25 +35,23 @@ if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1'){
 //修改状态
 if(isset($_GET['type']) && $_GET['type'] == 'upgrade'){
     $ids_arr = explode(',',$_GET['ids']);
-    $status = $_GET['status'];
     foreach($ids_arr as $key=>$item){
-        Model_Paymentrecord::upRecord(array('status'=>intval($status[$key])),intval($item));
+        Model_Paymentrecord::upRecord(array('status'=>intval($_GET['status'.$item])),intval($item));
         //判断如果是将状态改为"已收款"，则需要判断是否需要晋升或者激活
+        $info = Model_Paymentrecord::getRecordById(intval($item));
         if($status[$key] == 2){
-            $info = Model_Paymentrecord::getRecordById(intval($item));
             $member = Model_Member::getMemberById($info[0]['enter_member']);
             $member2 = Model_Member::getMemberById($info[0]['out_member']);
             if($member2[0]['status'] == 1){//未激活
-                //todo
                 Model_Member::active($member2[0]['user_user_id']);
             }
             if($member[0]['status'] == 2){
-                //todo
                 Model_Grade::promote($uid,$member[0]['user_user_id']);
             }
         }else{
             //拒绝和待收款判断是否需要降级
             $member = Model_Member::getMemberById($info[0]['out_member']);
+            //var_dump($member);exit;
             $grade_id = $member[0]['grade'];
             $grade_info = Model_Grade::getGradeById($grade_id,$uid);
             $lower_count = Model_Member::getLowerCount($info[0]['out_member']);

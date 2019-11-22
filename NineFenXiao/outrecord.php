@@ -36,7 +36,7 @@ if(isset($_GET['type']) && $_GET['type'] == 'upgrade'){
     $ids_arr = explode(',',$_GET['ids']);
     $status = $_GET['status'];
     foreach($ids_arr as $key=>$item){
-        Model_Paymentrecord::upRecord(array('status'=>intval($status[$key])),intval($item));
+        Model_Paymentrecord::upRecord(array('status'=>intval($_GET['status'.$item])),intval($item));
         $info = Model_Paymentrecord::getRecordById(intval($item));
         //判断如果是将状态改为"已收款"，则需要判断是否需要晋升或者激活
         if($status[$key] == 2){

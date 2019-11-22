@@ -14,19 +14,27 @@ use Model\WebPlugin\Model_Grade;
 use Model\WebPlugin\Model_Member;
 
 $where = array('u.user_id'=>$uid);
-if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1'){
-    if($_GET['start_date']){
-        $where['start_date'] = $_GET['start_date'];
-    }
-    if($_GET['end_date']){
-        $where['end_date'] = $_GET['end_date'];
-    }
-    if($_GET['search_mix']){
-        $where['search_mix'] = $_GET['search_mix'];
-    }
+if($_GET['start_date']){
+    $where['start_date'] = $_GET['start_date'];
     $smarty->assign("start_date",$_GET['start_date']);
+}
+if($_GET['end_date']){
+    $where['end_date'] = $_GET['end_date'];
     $smarty->assign("end_date",$_GET['end_date']);
+}
+if($_GET['search_mix']){
+    $where['search_mix'] = $_GET['search_mix'];
     $smarty->assign("search_mix",$_GET['search_mix']);
+}
+
+if(isset($_GET['type']) && $_GET['type'] == 'upgrade'){
+    $member_ids = explode(',',$_GET['ids']);
+    if($member_ids){
+        foreach ($member_ids as $key=>$item){
+            Model_Member::upOneMember(array('grade'=>intval($_GET['grade'.$item]),'status'=>intval($_GET['status'.$item])),$item);
+        }
+    }
+    //var_dump($_GET);exit;
 }
 
 $page  = intval($_GET['page']);
@@ -68,6 +76,7 @@ $smarty->assign("memberlist",$memberlist);
 $smarty->assign("membernumber",$member_number);
 $smarty->assign("totalpage",$totalpage);
 $smarty->assign("page_str",$page_str);
+$smarty->assign("page",$page);
 $smarty->assign("grade_list",$grade_list);
 $smarty->assign("action",'memberlist');
 $smarty->assign("title",'会员列表');

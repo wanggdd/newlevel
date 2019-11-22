@@ -108,7 +108,7 @@
                                         <td><{$item.payment_money}></td>
                                         <td>
                                             <div class="select-element dropdown">
-                                                <select name="status[]">
+                                                <select name="status<{$item.id}>">
                                                     <option value="1" <{if $item.status == 1}>selected="selected"<{/if}>>待收款</option>
                                                     <option value="2" <{if $item.status == 2}>selected="selected"<{/if}>>已收款</option>
                                                     <option value="3" <{if $item.status == 3}>selected="selected"<{/if}>>已拒绝</option>
