@@ -20,17 +20,14 @@ if(!$user_user_id){
 $where = array('m.enter_member'=>$user_user_id,'enter'=>'enter');
 if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1'){
     if($_GET['start_date']){
-        $where['start_date'] = $_GET['start_date'];
+        $where['start_date'] = $_GET['start_date'].' 00:00:00';
     }
     if($_GET['end_date']){
-        $where['end_date'] = $_GET['end_date'];
+        $where['end_date'] = $_GET['end_date'].' 23:59:59';
     }
     if($_GET['search_mix']){
         $where['search_mix'] = $_GET['search_mix'];
     }
-    $smarty->assign("start_date",$_GET['start_date']);
-    $smarty->assign("end_date",$_GET['end_date']);
-    $smarty->assign("search_mix",$_GET['search_mix']);
 }
 //修改状态
 if(isset($_GET['type']) && $_GET['type'] == 'upgrade'){
@@ -66,10 +63,6 @@ if(isset($_GET['type']) && $_GET['type'] == 'upgrade'){
         }
 
     }
-
-    $smarty->assign("start_date",$_GET['start_date']);
-    $smarty->assign("end_date",$_GET['end_date']);
-    $smarty->assign("search_mix",$_GET['search_mix']);
 }
 
 //删除数据
@@ -102,11 +95,14 @@ $totalpage = ceil($enter_count/$pagesize);
 $page = new Pager($enter_count,$page,$pagesize);
 $page_str = $page->GetPagerContent();
 
+$smarty->assign("start_date",$_GET['start_date'] ? $_GET['start_date'] : '');
+$smarty->assign("end_date",$_GET['end_date'] ? $_GET['end_date'] : '');
+$smarty->assign("search_mix",$_GET['search_mix'] ? $_GET['search_mix'] : '');
+
 $smarty->assign("record_list",$record_list);
 $smarty->assign("enter_count",$enter_count);
 $smarty->assign("totalpage",$totalpage);
 $smarty->assign("page_str",$page_str);
-
 
 $smarty->assign("title",'收款记录');
 $smarty->assign("action",'memberlist');

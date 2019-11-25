@@ -4,6 +4,7 @@
     <div class="filter-form">
         <div class="form-element">
             <div class="form-item-group">
+                <form method="get" action="/NineFenXiao/memberSet.php">
                 <div class="form-item">
                     <label class="item-label">用户昵称：</label>
                     <div class="item-con">
@@ -20,29 +21,36 @@
                                 <select name="grade" class="input-element suffix"  data-type="select">
                                     <option value="0">选择等级</option>
                                     <{foreach key=key item=item from=$gradeList}>
-                                        <option value="<{$grade}>"> <{$item.grade}>   </option>
+                                        <option value="<{$item}>"> <{$item.title}>   </option>
                                     <{/foreach}>
                                 </select>
                             </div>
-                            <div class="input-element-joint" data-toggle="datePicker" data-date-type="YYYY-MM-DD"
+                            <!--<div class="input-element-joint" data-toggle="datePicker" data-date-type="YYYY-MM-DD"
                                  data-date-max="2100-01-02" data-date-min="2018-01-09" data-date-isrange="1">
                                 <div class="input-element prefix">
                                     <input size="10" type="text" readonly="readonly" placeholder="开始时间"
-                                           value="<{$start_date}>" name="start_time">
+                                           value="<{$start_date}>" name="start_date">
                                     <i class="evicon evicon-date-1"></i>
                                 </div>
                                 <i class="joint-line">-</i>
                                 <div class="input-element prefix">
                                     <input size="10" type="text" readonly="readonly" placeholder="结束时间"
-                                           value="<{$end_date}>" name="end_time">
+                                           value="<{$end_date}>" name="end_date">
                                     <i class="evicon evicon-date-1"></i>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
-                        <button type="button" class="btn btn-primary"><span>搜索</span></button>
-                        <button type="button" class="btn btn-outline-danger"><span>查看全部</span></button>
+                        <div class="input-element">
+                            <input type="text" placeholder="用户名|昵称|手机号" size="30" name="search_mix" value="<{$search_mix}>">
+                        </div>
+                        <button type="submit" class="btn btn-primary"><span>搜索</span></button>
+                        <button type="submit" name="all" value="1" class="btn btn-outline-danger"><span>查看全部</span></button>
+                        <input type="hidden" name="type" value="search">
+                        <input type="hidden" name="id" value="<{$id}>">
+
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

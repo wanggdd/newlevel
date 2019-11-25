@@ -15,11 +15,11 @@ use Model\WebPlugin\Model_Member;
 
 $where = array('u.user_id'=>$uid);
 if($_GET['start_date']){
-    $where['start_date'] = $_GET['start_date'];
+    $where['start_date'] = $_GET['start_date'].' 00:00:00';
     $smarty->assign("start_date",$_GET['start_date']);
 }
 if($_GET['end_date']){
-    $where['end_date'] = $_GET['end_date'];
+    $where['end_date'] = $_GET['end_date'].' 23:59:59';
     $smarty->assign("end_date",$_GET['end_date']);
 }
 if($_GET['search_mix']){

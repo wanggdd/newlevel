@@ -20,10 +20,10 @@ if(!$user_user_id){
 $where = array('m.out_member'=>$user_user_id,'enter'=>'out');
 if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1'){
     if($_GET['start_date']){
-        $where['start_date'] = $_GET['start_date'];
+        $where['start_date'] = $_GET['start_date'].' 00:00:00';
     }
     if($_GET['end_date']){
-        $where['end_date'] = $_GET['end_date'];
+        $where['end_date'] = $_GET['end_date'].' 23:59:59';
     }
     if($_GET['search_mix']){
         $where['search_mix'] = $_GET['search_mix'];

@@ -83,6 +83,7 @@ if($_POST){
 }
 
 $info = Model_Grade::getGradeListByUser($uid);
+var_dump($info);exit;
 if($info){
     foreach($info as $key=>$item){
         $user_info = Model_User::getUser('id='.$item['user_user_id']);

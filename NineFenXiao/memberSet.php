@@ -75,8 +75,15 @@ if($page<1){
 }
 $offset = ($page-1)*$pagesize;
 
-$user_info = Model_User::getUserList('user_id='.$uid.' and is_del=0',$offset,$pagesize);
-$user_number = Model_User::getUserCount('user_id='.$uid.' and is_del=0');
+$where = 'user_id='.$uid.' and is_del=0';
+if(isset($_GET['type']) && $_GET['type'] == 'search' && $_GET['all'] != '1') {
+    if ($_GET['search_mix']) {
+        $where .= ' and (user_name like "%' . $_GET['search_mix'] . '%" or nick_name like "%' . $_GET['search_mix'] . '%" or mobile like "%' . $_GET['search_mix'] . '%")';
+    }
+}
+
+$user_info = Model_User::getUserList($where,$offset,$pagesize);
+$user_number = Model_User::getUserCount($where);
 if($user_info){
     foreach($user_info as $key=>$item){
         $member = Model_Member::getMemberById($item['id']);
@@ -97,7 +104,9 @@ $smarty->assign("usernumber",$user_number);
 $smarty->assign("totalpage",$totalpage);
 $smarty->assign("page_str",$page_str);
 
+$smarty->assign("search_mix",$_GET['search_mix'] ? $_GET['search_mix'] : '');
 $smarty->assign('info', $info);
 $smarty->assign('gradeList', $gradeList);
 $smarty->assign('user_info',$user_info);
+$smarty->assign('id', $id);
 $smarty->display('nine_fenxiao/memberSet.tpl');
