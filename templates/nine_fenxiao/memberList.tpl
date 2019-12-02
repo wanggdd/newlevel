@@ -135,7 +135,7 @@
                                                 <{/if}>
                                             </div>
                                         </td>
-                                        <td><span class="sub-text" data-action="lookSub"><{$member.lower_num}></span></td>
+                                        <td><span class="sub-text" data-action="lookSub" data-id="<{$member.user_user_id}>"><{$member.lower_num}></span></td>
                                         <td><{$member.input_time}></td>
                                         <td>
                                             <div class="href-area">
@@ -225,7 +225,7 @@
                         publicFun.winIframe('/ninefenxiao/paymentcode.php?user_user_id='+id, 410, 320, '更改收款码');
                         break;
                     case 'lookSub':
-                        publicFun.winIframe('memberList/lookSub.html', 520, 630, '下级信息');
+                        publicFun.winIframe('/ninefenxiao/looksub.php?user_user_id='+id, 520, 630, '下级信息');
                         break;
                     /*case 'changeAllGrade':
                         var opt = "";
